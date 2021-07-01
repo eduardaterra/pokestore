@@ -3,3 +3,14 @@
   box-sizing: border-box;
   font-family: "Press Start 2P", sans-serif;
 }
+
+:root {
+  --red: #ee1515;
+  --black: #000;
+  --dark-gray: #222224;
+  --light-gray: #b0b0b0;
+  --main-white: #f0f0f0;
+  --white: #fff;
+  --yellow: #ffe031;
+  --blue: #3564af;
+}

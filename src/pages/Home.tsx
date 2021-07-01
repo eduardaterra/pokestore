@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import useFetchPokemon, { PokemonList } from "../hooks/useFetchPokemon";
+import Header from "../components/Header";
 import PokemonCard from "../components/PokemonCard";
+import styled from "styled-components";
 const Home = () => {
   const [pokemonList, setPokemonList] = useState<PokemonList>([]);
   const { fetchPokemonList } = useFetchPokemon();
@@ -10,11 +12,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      {pokemonList.map(({ url }) => (
-        <PokemonCard url={url} />
-      ))}
-    </div>
+    <>
+      <Header />
+      <PokemonListContainer>
+        {pokemonList.map(({ url }) => (
+          <PokemonCard url={url} />
+        ))}
+      </PokemonListContainer>
+    </>
   );
 };
+const PokemonListContainer = styled.div``;
+
 export default Home;
