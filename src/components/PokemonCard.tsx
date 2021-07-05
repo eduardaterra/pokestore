@@ -1,48 +1,62 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
-import useFetchPokemon from "../hooks/useFetchPokemon";
+
+import useFetchPokemon, { Pokemon } from "../hooks/useFetchPokemon";
+import { CartContext } from "../contexts/CartContext";
+import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
+
 import PokemonColor, { A } from "../helpers/PokemonColor";
 import PokemonType from "./PokemonType";
-import PokemonImage from "./PokemonBg";
-
-import Cart from "../assets/images/cart.svg";
-
-type PokemonCardType = {
-  name: string;
-  types: string[];
-  price: number;
-  sprite: string;
-  id: number;
-};
+import PokemonImage from "./PokemonImage";
+import AddToCartButton from "./AddToCartButton";
 
 const PokemonCard: React.FC<{ url: string }> = ({ url }) => {
   const { fetchPokemon } = useFetchPokemon();
-  const [pokemon, setPokemon] = useState<PokemonCardType>({
+  const [isFetching, setIsFetching] = useState(true);
+
+  const [pokemon, setPokemon] = useState<Pokemon>({
     name: "",
     types: [""],
+    base_experience: 0,
+    id: 0,
+    height: 0,
+    weight: 0,
     price: 0,
     sprite: "",
-    id: 0,
   });
 
+  const { pokemonCartList, setPokemonCartList } = useContext(CartContext);
+  const { setShowModal, setPokemonInfo } = useContext(PokemonInfoModalContext);
+
   useEffect(() => {
-    fetchPokemon(url).then((res) =>
+    fetchPokemon(url).then((res) => {
       setPokemon({
         name: res.name,
         types: res.types,
+        base_experience: res.base_experience,
+        id: res.id,
+        height: res.height,
+        weight: res.weight,
         price: res.price,
         sprite: res.sprite,
-        id: res.id,
-      })
-    );
+      });
+      setIsFetching(false);
+    });
   }, []);
+  console.log(pokemonCartList);
 
-  return (
+  return isFetching ? null : (
     <PokemonCardComponent>
-      <PokemonImageContainer>
-        <PokemonImage pokeTypes={pokemon.types} pokeImg={pokemon.sprite} />
-      </PokemonImageContainer>
+      <PokemonImage
+        primaryColor={PokemonColor(pokemon.types[0] as A)}
+        secondaryColor={PokemonColor(pokemon.types[1] as A)}
+        pokeImg={pokemon.sprite}
+        pokemonImageSize={{ height: 8, width: 8 }}
+        onClick={() => {
+          setShowModal(true);
+          setPokemonInfo(pokemon);
+        }}
+      />
 
       <PokemonName>{pokemon.name}</PokemonName>
       <PokemonTypeContainer>
@@ -50,13 +64,23 @@ const PokemonCard: React.FC<{ url: string }> = ({ url }) => {
           <PokemonType
             pokemonColor={PokemonColor(type as A)}
             pokemonType={type}
-          ></PokemonType>
+            fontSize={0.45}
+            backgroundSize={{ height: 1.33, width: 4.4 }}
+          />
         ))}
       </PokemonTypeContainer>
       <PokemonPrice> ¥ {pokemon.price}</PokemonPrice>
-      <AddToCartButton onClick={() => {}}>
-        <img src={Cart} alt="cart" /> add to cart
-      </AddToCartButton>
+      <AddToCartButton
+        fontSize={0.6}
+        iconSize={1.3}
+        backgroundSize={{
+          height: 2,
+          width: 10,
+        }}
+        onClick={() => {
+          setPokemonCartList([...pokemonCartList, pokemon]);
+        }}
+      />
     </PokemonCardComponent>
   );
 };
@@ -73,18 +97,12 @@ const PokemonCardComponent = styled.div`
   align-items: center;
 `;
 
-const PokemonImageContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0.5rem;
-`;
-
 const PokemonName = styled.h2`
   justify-content: center;
   align-content: center;
   margin: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
+  color: var(--dark-gray);
 `;
 
 const PokemonTypeContainer = styled.div`
@@ -100,24 +118,6 @@ const PokemonPrice = styled.h3`
   color: #777777;
   font-size: 0.8rem;
   margin: 0.8rem;
-`;
-
-const AddToCartButton = styled.div`
-  display: flex;
-  flex-direction: row;
-  background-color: var(--red);
-  border-radius: 1rem;
-  color: var(--white);
-  width: 10rem;
-  height: 2rem;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 0 auto;
-  cursor: pointer;
-  font-size: 0.6rem;
-  & > img {
-    height: 1.3rem;
-  }
 `;
 
 export default PokemonCard;

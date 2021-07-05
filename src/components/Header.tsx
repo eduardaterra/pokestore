@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Logo from "../assets/images/logo.svg";
 import Cart from "../assets/images/cart.svg";
+import Search from "../assets/images/search-icon.svg";
 
 const Header: React.FC = () => {
   return (
@@ -16,10 +17,15 @@ const Header: React.FC = () => {
               </CounterComponent>
               <CartComponent src={Cart} />
             </CartWrapper>
-            <SearchInput
-              type="text"
-              placeholder="search for your pokemon here"
-            />
+            <SearchContainer>
+              <SearchInput
+                type="text"
+                placeholder="search for your pokemon here"
+              />
+              <SearchButton>
+                <SearchIcon src={Search} />
+              </SearchButton>
+            </SearchContainer>
           </HeaderWrapper>
         </HeaderElements>
       </HeaderContent>
@@ -35,6 +41,7 @@ const HeaderComponent = styled.div`
   flex-direction: column;
   width: 100%;
   position: fixed;
+  z-index: 1;
 `;
 
 const HeaderContent = styled.div`
@@ -51,16 +58,15 @@ const CartWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  position: relative;
 `;
 const CartComponent = styled.img`
   width: 2.3rem;
-  position: relative;
   margin: 0.5rem;
   cursor: pointer;
 `;
 const CounterComponent = styled.div`
   background-color: var(--yellow);
-
   width: 1.4rem;
   height: 1.4rem;
   position: absolute;
@@ -75,6 +81,13 @@ const CounterComponent = styled.div`
   }
 `;
 
+const SearchContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 const SearchInput = styled.input`
   margin: 1rem;
   width: 20rem;
@@ -86,11 +99,23 @@ const SearchInput = styled.input`
   cursor: pointer;
   font-size: 0.6rem;
   padding: 1rem;
-
+  position: relative;
   &::placeholder {
     color: var(--light-gray);
-    font-size: 0.6rem;
+    font-size: 0.55rem;
   }
+`;
+
+const SearchButton = styled.button`
+  border: 0;
+  background: transparent;
+  position: absolute;
+  margin: 1.2rem;
+  cursor: pointer;
+`;
+
+const SearchIcon = styled.img`
+  width: 1.3rem;
 `;
 
 const HeaderElements = styled.div`
