@@ -1,26 +1,48 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { CartContext } from "../contexts/CartContext";
+
 import styled from "styled-components";
 import Logo from "../assets/images/logo.svg";
 import Cart from "../assets/images/cart.svg";
 import Search from "../assets/images/search-icon.svg";
+import { useHistory } from "react-router-dom";
 
 const Header: React.FC = () => {
+  const history = useHistory();
+  const { pokemonCartList } = useContext(CartContext);
+
+  const handleCheckoutClick = () => {
+    history.push("/checkout/cart");
+  };
+
+  const handleHomeClick = () => {
+    history.push("/");
+  };
+
   return (
     <HeaderComponent>
       <HeaderContent>
         <HeaderElements>
-          <LogoImage src={Logo} alt="Pokestore logo" />
+          <LogoImage
+            src={Logo}
+            alt="Pokestore logo"
+            onClick={handleHomeClick}
+          />
           <HeaderWrapper>
-            <CartWrapper>
-              <CounterComponent>
-                <p>1</p>
-              </CounterComponent>
+            <CartWrapper onClick={handleCheckoutClick}>
+              {pokemonCartList.length > 0 ? (
+                <CounterComponent>
+                  <p>{pokemonCartList.length}</p>
+                </CounterComponent>
+              ) : null}
+
               <CartComponent src={Cart} />
             </CartWrapper>
             <SearchContainer>
               <SearchInput
                 type="text"
-                placeholder="search for your pokemon here"
+                placeholder="search for your pokémon here"
               />
               <SearchButton>
                 <SearchIcon src={Search} />
@@ -52,32 +74,34 @@ const HeaderContent = styled.div`
 const LogoImage = styled.img`
   width: 12rem;
   margin: 1rem;
+  cursor: pointer;
 `;
 
 const CartWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
   position: relative;
+  margin-right: 1rem;
+  cursor: pointer;
 `;
 const CartComponent = styled.img`
   width: 2.3rem;
-  margin: 0.5rem;
-  cursor: pointer;
 `;
 const CounterComponent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--yellow);
-  width: 1.4rem;
-  height: 1.4rem;
+  transform: translate(100%, -20%);
+  min-width: 1.3rem;
+  min-height: 1.3rem;
   position: absolute;
   border-radius: 100%;
-  font-size: 0.6rem;
-  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.25),
+  font-size: 0.45rem;
+  box-shadow: 1.5px 1.5px 3px 0.5px rgba(0, 0, 0, 0.25),
     inset 0px 9px 10px 2px rgba(255, 255, 255, 0.25);
   & > p {
     color: var(--blue);
     text-align: center;
-    padding: 30% 0;
   }
 `;
 
@@ -133,8 +157,7 @@ const HeaderFooter = styled.div`
   background-color: var(--black);
   width: 100%;
   height: 1.4rem;
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25),
-    inset 0px 10px 10px 0px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0px 0px 5px 4px #000000da;
   align-items: center;
   justify-content: center;
 `;
@@ -144,8 +167,7 @@ const PokeButton = styled.div`
   width: 3rem;
   height: 3rem;
   background-color: var(--black);
-  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25),
-    inset 0px 9px 10px 2px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0px 0px 3px 2.5px #000000da;
   overflow: visible;
   border-radius: 100%;
   align-items: center;

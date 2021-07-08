@@ -43,7 +43,6 @@ const PokemonCard: React.FC<{ url: string }> = ({ url }) => {
       setIsFetching(false);
     });
   }, []);
-  console.log(pokemonCartList);
 
   return isFetching ? null : (
     <PokemonCardComponent>

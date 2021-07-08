@@ -30,8 +30,6 @@ const Home = () => {
         setShowModal={setShowModal}
         pokemonInfo={pokemonInfo}
       />
-      <Header />
-      <PokemonListGap />
       <ListWrapper>
         <PokemonListContainer>
           {pokemonList.map(({ url }) => (
@@ -60,11 +58,6 @@ const Home = () => {
     </>
   );
 };
-
-const PokemonListGap = styled.div`
-  width: 100%;
-  height: 8rem;
-`;
 
 const ListWrapper = styled.div`
   display: flex;

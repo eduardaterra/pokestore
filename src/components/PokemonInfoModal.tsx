@@ -19,7 +19,6 @@ const PokemonInfoModal = (props: ModalProps) => {
   const { showModal, setShowModal, pokemonInfo } = props;
   const { setPokemonCartList, pokemonCartList } = useContext(CartContext);
 
-  console.log(pokemonCartList);
   return showModal ? (
     <ModalOverlay>
       <ModalContainer>
@@ -54,7 +53,6 @@ const PokemonInfoModal = (props: ModalProps) => {
               weight: <strong>{pokemonInfo.weight / 10}kg</strong>
               <br />
             </PokemonInfoContainer>
-
             <Footer>
               <AddToCartButton
                 fontSize={0.9}
