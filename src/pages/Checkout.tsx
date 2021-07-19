@@ -78,6 +78,7 @@ const CheckoutContainer = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
+  margin-top: 1.6rem;
   position: fixed;
   gap: 2rem;
 `;

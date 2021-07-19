@@ -69,6 +69,7 @@ const PokemonCardComponent = styled.div`
 const PokemonName = styled.h2`
   justify-content: center;
   align-content: center;
+  text-align: justify;
   margin: 0.5rem;
   font-size: 0.8rem;
   color: var(--dark-gray);

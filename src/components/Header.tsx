@@ -22,7 +22,8 @@ const Header: React.FC = () => {
     history.push("/");
   };
 
-  const handleSearchPokemon = () => {
+  const handleSearchPokemon = (event: FormEvent) => {
+    event.preventDefault();
     searchPokemon.trim().toLowerCase();
     history.push(`/search/result/${searchPokemon}`);
   };

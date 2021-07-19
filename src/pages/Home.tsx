@@ -31,13 +31,11 @@ const Home = () => {
         pokemonInfo={pokemonInfo}
       />
       <ListWrapper>
-        {
-          <PokemonListContainer>
-            {pokemonList.map(({ ...pokemon }) => (
-              <PokemonCard pokemon={pokemon} key={pokemon.key} />
-            ))}
-          </PokemonListContainer>
-        }
+        <PokemonListContainer>
+          {pokemonList.map(({ ...pokemon }) => (
+            <PokemonCard pokemon={pokemon} key={pokemon.key} />
+          ))}
+        </PokemonListContainer>
         <Footer>
           {isLoading ? (
             <Spinner />
@@ -73,6 +71,7 @@ const PokemonListContainer = styled.div`
   grid-template-columns: repeat(4, auto);
   width: 100%;
   justify-content: center;
+  margin-top: 1.6rem;
   column-gap: 2rem;
   row-gap: 2rem;
 `;
