@@ -30,7 +30,7 @@ export const CartProvider: React.FC = ({ children }) => {
 
   const groupedCartList = pokemonCartList.reduce<groupedList>(
     (acc: groupedList, current: Pokemon) => {
-      const key = current.id;
+      const key = current.key;
       acc[key] = acc[key] || [];
       acc[key].push(current);
 

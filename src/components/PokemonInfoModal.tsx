@@ -18,9 +18,11 @@ type ModalProps = {
 const PokemonInfoModal = (props: ModalProps) => {
   const { showModal, setShowModal, pokemonInfo } = props;
   const { setPokemonCartList, pokemonCartList } = useContext(CartContext);
+  document.body.style.overflow = "unset";
 
   return showModal ? (
     <ModalOverlay>
+      {(document.body.style.overflow = "hidden")}
       <ModalContainer>
         <PokemonContent>
           <PokemonImage
@@ -77,10 +79,11 @@ const PokemonInfoModal = (props: ModalProps) => {
 const ModalOverlay = styled.div`
   display: flex;
   position: fixed;
+  transform: translateY(-6.4rem);
   z-index: 2;
   background: rgba(0, 0, 0, 0.2);
-  height: 100vh;
-  width: 100vw;
+  min-height: 100%;
+  width: 100%;
   align-items: center;
   justify-content: center;
 `;

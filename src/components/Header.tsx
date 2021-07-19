@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { FormEvent, useContext } from "react";
 
 import { CartContext } from "../contexts/CartContext";
 
@@ -7,10 +7,12 @@ import Logo from "../assets/images/logo.svg";
 import Cart from "../assets/images/cart.svg";
 import Search from "../assets/images/search-icon.svg";
 import { useHistory } from "react-router-dom";
+import SearchContext from "../contexts/SearchContext";
 
 const Header: React.FC = () => {
-  const history = useHistory();
+  const { searchPokemon, setSearchPokemon } = useContext(SearchContext);
   const { pokemonCartList } = useContext(CartContext);
+  const history = useHistory();
 
   const handleCheckoutClick = () => {
     history.push("/checkout/cart");
@@ -18,6 +20,11 @@ const Header: React.FC = () => {
 
   const handleHomeClick = () => {
     history.push("/");
+  };
+
+  const handleSearchPokemon = () => {
+    searchPokemon.trim().toLowerCase();
+    history.push(`/search/result/${searchPokemon}`);
   };
 
   return (
@@ -39,15 +46,18 @@ const Header: React.FC = () => {
 
               <CartComponent src={Cart} />
             </CartWrapper>
-            <SearchContainer>
+            <Form onSubmit={handleSearchPokemon}>
               <SearchInput
                 type="text"
                 placeholder="search for your pokémon here"
+                onChange={(event) => {
+                  setSearchPokemon(event.target.value);
+                }}
               />
-              <SearchButton>
+              <SearchButton type="submit">
                 <SearchIcon src={Search} />
               </SearchButton>
-            </SearchContainer>
+            </Form>
           </HeaderWrapper>
         </HeaderElements>
       </HeaderContent>
@@ -104,13 +114,7 @@ const CounterComponent = styled.div`
     text-align: center;
   }
 `;
-
-const SearchContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
+const Form = styled.form``;
 
 const SearchInput = styled.input`
   margin: 1rem;
@@ -123,7 +127,6 @@ const SearchInput = styled.input`
   cursor: pointer;
   font-size: 0.6rem;
   padding: 1rem;
-  position: relative;
   &::placeholder {
     color: var(--light-gray);
     font-size: 0.55rem;
@@ -134,7 +137,7 @@ const SearchButton = styled.button`
   border: 0;
   background: transparent;
   position: absolute;
-  margin: 1.2rem;
+  transform: translate(-3.5rem, 1.3rem);
   cursor: pointer;
 `;
 

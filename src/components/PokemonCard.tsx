@@ -1,7 +1,7 @@
-import { useEffect, useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 
-import useFetchPokemon, { Pokemon } from "../hooks/useFetchPokemon";
+import { Pokemon } from "../hooks/useFetchPokemon";
 import { CartContext } from "../contexts/CartContext";
 import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
 
@@ -10,41 +10,11 @@ import PokemonType from "./PokemonType";
 import PokemonImage from "./PokemonImage";
 import AddToCartButton from "./AddToCartButton";
 
-const PokemonCard: React.FC<{ url: string }> = ({ url }) => {
-  const { fetchPokemon } = useFetchPokemon();
-  const [isFetching, setIsFetching] = useState(true);
-
-  const [pokemon, setPokemon] = useState<Pokemon>({
-    name: "",
-    types: [""],
-    base_experience: 0,
-    id: 0,
-    height: 0,
-    weight: 0,
-    price: 0,
-    sprite: "",
-  });
-
+const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
   const { pokemonCartList, setPokemonCartList } = useContext(CartContext);
   const { setShowModal, setPokemonInfo } = useContext(PokemonInfoModalContext);
 
-  useEffect(() => {
-    fetchPokemon(url).then((res) => {
-      setPokemon({
-        name: res.name,
-        types: res.types,
-        base_experience: res.base_experience,
-        id: res.id,
-        height: res.height,
-        weight: res.weight,
-        price: res.price,
-        sprite: res.sprite,
-      });
-      setIsFetching(false);
-    });
-  }, []);
-
-  return isFetching ? null : (
+  return (
     <PokemonCardComponent>
       <PokemonImage
         primaryColor={PokemonColor(pokemon.types[0] as A)}

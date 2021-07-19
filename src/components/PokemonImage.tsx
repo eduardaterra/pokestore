@@ -63,6 +63,7 @@ const PokemonImageContainer = styled.div<
   align-items: center;
   justify-content: center;
   margin: 0.5rem;
+  cursor: pointer;
   background-image: url(${({ backgroundUrl }) => backgroundUrl}),
     linear-gradient(
       130deg,
@@ -75,7 +76,7 @@ const PokemonImageContainer = styled.div<
 
 const Image = styled.img`
   width: 75%;
-  -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
 `;
 
 export default PokemonImage;
