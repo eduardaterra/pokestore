@@ -44,8 +44,8 @@ const PokeballContainer = styled.div`
       -webkit-transform: rotate(-45deg);
     }
     50% {
-      transform: rotate(325deg);
-      -webkit-transform: rotate(325deg);
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
     }
     100% {
       transform: rotate(-45deg);
@@ -102,7 +102,7 @@ const PokeballDetails = styled.div`
     left: 1.104rem;
     margin: 0 auto;
     z-index: 250;
-    animation: color-change 1.5s infinite;
+    animation: color-change 1s infinite;
     @keyframes color-change {
       0%,
       20%,

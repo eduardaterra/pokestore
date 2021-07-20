@@ -7,11 +7,14 @@ import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
 import PokemonCard from "../components/PokemonCard";
 import PokemonInfoModal from "../components/PokemonInfoModal";
 import Spinner from "../components/Spinner";
+import FiltersModal from "../components/FiltersModal";
 
 const Home = () => {
   const [pokemonList, setPokemonList] = useState<PokemonList>([]);
-  const { fetchPokemonList } = useFetchPokemon();
   const [isLoading, setIsLoading] = useState(true);
+
+  const { fetchPokemonList } = useFetchPokemon();
+
   const { showModal, setShowModal, pokemonInfo } = useContext(
     PokemonInfoModalContext
   );
@@ -30,31 +33,34 @@ const Home = () => {
         setShowModal={setShowModal}
         pokemonInfo={pokemonInfo}
       />
-      <ListWrapper>
-        <PokemonListContainer>
-          {pokemonList.map(({ ...pokemon }) => (
-            <PokemonCard pokemon={pokemon} key={pokemon.key} />
-          ))}
-        </PokemonListContainer>
-        <Footer>
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <FetchMoreButton
-              onClick={() => {
-                setIsLoading(true);
+      <HomeContainer>
+        <ListWrapper>
+          <PokemonListContainer>
+            {pokemonList.map(({ ...pokemon }) => (
+              <PokemonCard pokemon={pokemon} key={pokemon.key} />
+            ))}
+          </PokemonListContainer>
+          <Footer>
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <FetchMoreButton
+                onClick={() => {
+                  setIsLoading(true);
 
-                fetchPokemonList(pokemonList).then((res) => {
-                  setPokemonList(res);
-                  setTimeout(() => setIsLoading(false), 1000);
-                });
-              }}
-            >
-              View More
-            </FetchMoreButton>
-          )}
-        </Footer>
-      </ListWrapper>
+                  fetchPokemonList(pokemonList).then((res) => {
+                    setPokemonList(res);
+                    setTimeout(() => setIsLoading(false), 1000);
+                  });
+                }}
+              >
+                View More
+              </FetchMoreButton>
+            )}
+          </Footer>
+        </ListWrapper>
+        {isLoading ? null : <FiltersModal />}
+      </HomeContainer>
     </>
   );
 };
@@ -63,6 +69,12 @@ const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+`;
+
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
   justify-content: center;
 `;
 

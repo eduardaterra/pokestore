@@ -2,6 +2,8 @@ import React, { createContext, useState } from "react";
 import { Pokemon } from "../hooks/useFetchPokemon";
 
 type PokemonInfoModal = {
+  showScrollbar: string;
+  setShowScrollbar: (value: string) => void;
   showModal: boolean;
   setShowModal: (value: boolean) => void;
   pokemonInfo: Pokemon;
@@ -9,6 +11,8 @@ type PokemonInfoModal = {
 };
 
 export const PokemonInfoModalContext = createContext<PokemonInfoModal>({
+  showScrollbar: "unset",
+  setShowScrollbar: () => {},
   showModal: false,
   setShowModal: () => {},
   pokemonInfo: {
@@ -26,6 +30,7 @@ export const PokemonInfoModalContext = createContext<PokemonInfoModal>({
 
 export const PokemonInfoModalProvider: React.FC = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showScrollbar, setShowScrollbar] = useState("unset");
   const [pokemonInfo, setPokemonInfo] = useState<Pokemon>({
     name: "",
     types: [""],
@@ -38,7 +43,14 @@ export const PokemonInfoModalProvider: React.FC = ({ children }) => {
   });
   return (
     <PokemonInfoModalContext.Provider
-      value={{ showModal, setShowModal, pokemonInfo, setPokemonInfo }}
+      value={{
+        showScrollbar,
+        setShowScrollbar,
+        showModal,
+        setShowModal,
+        pokemonInfo,
+        setPokemonInfo,
+      }}
     >
       {children}
     </PokemonInfoModalContext.Provider>

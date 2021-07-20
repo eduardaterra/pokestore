@@ -7,10 +7,10 @@ import Logo from "../assets/images/logo.svg";
 import Cart from "../assets/images/cart.svg";
 import Search from "../assets/images/search-icon.svg";
 import { useHistory } from "react-router-dom";
-import SearchContext from "../contexts/SearchContext";
+import { useState } from "react";
 
 const Header: React.FC = () => {
-  const { searchPokemon, setSearchPokemon } = useContext(SearchContext);
+  const [searchPokemon, setSearchPokemon] = useState("");
   const { pokemonCartList } = useContext(CartContext);
   const history = useHistory();
 
@@ -25,9 +25,11 @@ const Header: React.FC = () => {
   const handleSearchPokemon = (event: FormEvent) => {
     event.preventDefault();
     searchPokemon.trim().toLowerCase();
-    history.push(`/search/result/${searchPokemon}`);
+    if (searchPokemon === "") {
+      return;
+    }
+    history.push(`/search/${searchPokemon}`);
   };
-
   return (
     <HeaderComponent>
       <HeaderContent>

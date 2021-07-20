@@ -7,6 +7,7 @@ import SearchResult from "./pages/SearchResult";
 
 import { CartProvider } from "./contexts/CartContext";
 import { PokemonInfoModalProvider } from "./contexts/PokemonInfoModalContext";
+import { FiltersModalProvider } from "./contexts/FiltersModalContext";
 
 import Header from "./components/Header";
 
@@ -14,19 +15,23 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <CartProvider>
-          <PokemonInfoModalProvider>
-            <Header />
-            <Gap />
-            <Route path="/" exact component={Home} />
-            <Route path="/checkout/cart" exact component={Checkout} />
-            <Route
-              path="/search/result/:pokemon"
-              exact
-              component={() => <SearchResult key={window.location.pathname} />}
-            />
-          </PokemonInfoModalProvider>
-        </CartProvider>
+        <FiltersModalProvider>
+          <CartProvider>
+            <PokemonInfoModalProvider>
+              <Header />
+              <Gap />
+              <Route path="/" exact component={Home} />
+              <Route path="/checkout/cart" exact component={Checkout} />
+              <Route
+                path="/search/:pokemon"
+                exact
+                component={() => (
+                  <SearchResult key={window.location.pathname} />
+                )}
+              />
+            </PokemonInfoModalProvider>
+          </CartProvider>
+        </FiltersModalProvider>
       </Switch>
     </BrowserRouter>
   );

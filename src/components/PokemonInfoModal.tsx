@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { Pokemon } from "../hooks/useFetchPokemon";
 import { CartContext } from "../contexts/CartContext";
@@ -8,6 +8,7 @@ import AddToCartButton from "./AddToCartButton";
 import PokemonType from "./PokemonType";
 import PokemonImage from "./PokemonImage";
 import PokemonColor, { A } from "../helpers/PokemonColor";
+import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
 
 type ModalProps = {
   showModal: boolean;
@@ -17,12 +18,13 @@ type ModalProps = {
 
 const PokemonInfoModal = (props: ModalProps) => {
   const { showModal, setShowModal, pokemonInfo } = props;
+  const { showScrollbar } = useContext(PokemonInfoModalContext);
   const { setPokemonCartList, pokemonCartList } = useContext(CartContext);
-  document.body.style.overflow = "unset";
+
+  document.body.style.overflow = showScrollbar;
 
   return showModal ? (
     <ModalOverlay>
-      {(document.body.style.overflow = "hidden")}
       <ModalContainer>
         <PokemonContent>
           <PokemonImage

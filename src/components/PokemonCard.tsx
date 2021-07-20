@@ -12,7 +12,9 @@ import AddToCartButton from "./AddToCartButton";
 
 const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
   const { pokemonCartList, setPokemonCartList } = useContext(CartContext);
-  const { setShowModal, setPokemonInfo } = useContext(PokemonInfoModalContext);
+  const { setShowModal, setPokemonInfo, setShowScrollbar } = useContext(
+    PokemonInfoModalContext
+  );
 
   return (
     <PokemonCardComponent>
@@ -24,6 +26,7 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
         onClick={() => {
           setShowModal(true);
           setPokemonInfo(pokemon);
+          setShowScrollbar("hidden");
         }}
       />
 
@@ -57,11 +60,11 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
 const PokemonCardComponent = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--light-gray);
+  /* border: 1px solid var(--light-gray); */
   border-radius: 1rem;
   width: 15rem;
   height: 18rem;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
 
   align-items: center;
 `;
