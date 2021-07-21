@@ -26,6 +26,11 @@ function App() {
                 exact
                 component={() => <Home key={window.location.pathname} />}
               />
+              <Route
+                path="/order/:order"
+                exact
+                component={() => <Home key={window.location.pathname} />}
+              />
               <Route path="/checkout/cart" exact component={Checkout} />
               <Route
                 path="/search/:pokemon"

@@ -6,6 +6,8 @@ type FilterContext = {
   setShowFilters: (value: boolean) => void;
   path: string;
   setPath: (value: string) => void;
+  order: string;
+  setOrder: (value: string) => void;
 };
 
 const FiltersModalContext = createContext<FilterContext>({
@@ -13,15 +15,25 @@ const FiltersModalContext = createContext<FilterContext>({
   setShowFilters: () => {},
   path: "",
   setPath: () => {},
+  order: "",
+  setOrder: () => {},
 });
 
 export const FiltersModalProvider: React.FC = ({ children }) => {
   const [showFilters, setShowFilters] = useState(false);
   const [path, setPath] = useState("");
+  const [order, setOrder] = useState("");
 
   return (
     <FiltersModalContext.Provider
-      value={{ showFilters, setShowFilters, path, setPath }}
+      value={{
+        showFilters,
+        setShowFilters,
+        path,
+        setPath,
+        order,
+        setOrder,
+      }}
     >
       {children}
     </FiltersModalContext.Provider>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import useFetchPokemon, { PokemonList } from "../hooks/useFetchPokemon";
 import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
@@ -15,25 +15,24 @@ const Home = () => {
   const [pokemonList, setPokemonList] = useState<PokemonList>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
+  const [countPokemon, setCountPokemon] = useState(0);
 
   const { fetchPokemonList } = useFetchPokemon();
 
   const { showModal, setShowModal, pokemonInfo } = useContext(
     PokemonInfoModalContext
   );
-  const { setPath } = useContext(FiltersModalContext);
+  const { setPath, setOrder } = useContext(FiltersModalContext);
 
   const { type }: { type: string } = useParams();
-  const { pathname } = useLocation();
-  const splitedPathname = pathname.split("/");
-  splitedPathname.splice(splitedPathname.indexOf(type), 1);
-
-  console.log(typeof splitedPathname.join("/"));
+  const { order }: { order: string } = useParams();
 
   useEffect(() => {
-    fetchPokemonList(pokemonList, type).then((res) => {
-      setPath(splitedPathname.join("/"));
-      setPokemonList(res);
+    fetchPokemonList(pokemonList, type, order).then((res) => {
+      setOrder(order);
+      setPath("/");
+      setCountPokemon(res.count);
+      setPokemonList(res.results);
       setIsLoading(false);
       setShowFilters(true);
     });
@@ -56,20 +55,22 @@ const Home = () => {
           <Footer>
             {isLoading ? (
               <Spinner />
-            ) : (
+            ) : countPokemon > pokemonList.length ? (
               <FetchMoreButton
                 onClick={() => {
                   setIsLoading(true);
 
-                  fetchPokemonList(pokemonList).then((res) => {
-                    setPokemonList(res);
+                  fetchPokemonList(pokemonList, type, order).then((res) => {
+                    setOrder(order);
+                    setPath("/");
+                    setPokemonList(res.results);
                     setTimeout(() => setIsLoading(false), 1000);
                   });
                 }}
               >
                 View More
               </FetchMoreButton>
-            )}
+            ) : null}
           </Footer>
         </ListWrapper>
         {showFilters ? <FiltersModal /> : null}

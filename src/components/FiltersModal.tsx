@@ -53,14 +53,25 @@ const FiltersModal = () => {
             </ExitButton>
             <Title>order by</Title>
             {order.map((prop) =>
-              prop === "_id" || prop === "__v" || prop === "types" ? null : (
-                <Link to="/">{prop}</Link>
+              prop === "_id" ||
+              prop === "__v" ||
+              prop === "types" ||
+              prop === "sprite" ? null : (
+                <Link
+                  to={`${path}order/${prop}`}
+                  onClick={() => {
+                    setShowFilters(false);
+                    setShowScrollbar("unset");
+                  }}
+                >
+                  {prop}
+                </Link>
               )
             )}
             <Title>type filters</Title>
             {types.map((type) => (
               <Link
-                to={path === "" ? `${path}types/${type}` : `${path}/${type}`}
+                to={`${path}types/${type}/`}
                 onClick={() => {
                   setShowFilters(false);
                   setShowScrollbar("unset");

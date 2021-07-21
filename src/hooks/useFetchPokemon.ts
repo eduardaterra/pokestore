@@ -35,7 +35,7 @@ const fetchPokemonList = async (
   pokemonList: PokemonList,
   type?: string,
   order?: string
-): Promise<PokemonList> => {
+) => {
   const offset = pokemonList.length;
 
   const url =
@@ -48,7 +48,9 @@ const fetchPokemonList = async (
       : `https://pokestore-api.herokuapp.com/pokemon?offset=${offset}&limit=20`;
 
   const { data } = await axios.get<PokemonApiRes>(url);
-  return [...pokemonList, ...data.results];
+  const countResults = data.count === undefined ? 0 : data.count;
+
+  return { count: countResults, results: [...pokemonList, ...data.results] };
 };
 
 const fetchPokemonSearch = async (searchList: PokemonList, params: string) => {
