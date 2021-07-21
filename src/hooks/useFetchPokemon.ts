@@ -32,12 +32,22 @@ const useFetchPokemon = () => {
 };
 
 const fetchPokemonList = async (
-  pokemonList: PokemonList
+  pokemonList: PokemonList,
+  type?: string,
+  order?: string
 ): Promise<PokemonList> => {
   const offset = pokemonList.length;
-  const { data } = await axios.get<PokemonApiRes>(
-    `https://pokestore-api.herokuapp.com/pokemon?offset=${offset}&limit=20`
-  );
+
+  const url =
+    type !== undefined
+      ? order !== undefined
+        ? `https://pokestore-api.herokuapp.com/types/${type}?offset=${offset}&limit=20&order=${order}`
+        : `https://pokestore-api.herokuapp.com/types/${type}?offset=${offset}&limit=20`
+      : order !== undefined
+      ? `https://pokestore-api.herokuapp.com/pokemon?offset=${offset}&limit=20&order=${order}`
+      : `https://pokestore-api.herokuapp.com/pokemon?offset=${offset}&limit=20`;
+
+  const { data } = await axios.get<PokemonApiRes>(url);
   return [...pokemonList, ...data.results];
 };
 

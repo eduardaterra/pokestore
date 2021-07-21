@@ -13,7 +13,7 @@ type AsideProps = {
 };
 
 const FiltersModal = () => {
-  const { showFilters, setShowFilters } = useContext(FiltersModalContext);
+  const { showFilters, setShowFilters, path } = useContext(FiltersModalContext);
   const { fetchPokemonProps, fetchPokemonTypes } = useFetchPokemon();
   const [order, setOrder] = useState<String[]>([]);
   const [types, setTypes] = useState<String[]>([]);
@@ -45,7 +45,7 @@ const FiltersModal = () => {
                 setTimeout(() => {
                   setShowFilters(false);
                   setShowScrollbar("unset");
-                }, 500);
+                }, 700);
                 setSlide("slideOut");
               }}
             >
@@ -59,7 +59,15 @@ const FiltersModal = () => {
             )}
             <Title>type filters</Title>
             {types.map((type) => (
-              <Link to="/">{type}</Link>
+              <Link
+                to={path === "" ? `${path}types/${type}` : `${path}/${type}`}
+                onClick={() => {
+                  setShowFilters(false);
+                  setShowScrollbar("unset");
+                }}
+              >
+                {type}
+              </Link>
             ))}
           </FilterAside>
         </Overlay>
@@ -75,13 +83,12 @@ const FilterButton = styled.button`
   width: 3rem;
   height: 3rem;
   cursor: pointer;
+  margin: 1.6rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-
-  transform: translate(9rem, 1rem);
 `;
 
 const FilterImg = styled.img`
@@ -107,7 +114,7 @@ const FilterAside = styled.div<Pick<AsideProps, "slide">>`
   justify-content: flex-start;
   align-items: flex-end;
   position: absolute;
-  animation: ${({ slide }) => slide} 0.5s ease-out;
+  animation: ${({ slide }) => slide} 0.7s ease-out;
 
   @keyframes slideIn {
     0% {
@@ -128,7 +135,7 @@ const FilterAside = styled.div<Pick<AsideProps, "slide">>`
 
   > a {
     color: var(--red);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     text-decoration: underline;
     margin: 0 2rem 0.5rem 2rem;
 

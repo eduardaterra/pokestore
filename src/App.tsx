@@ -21,6 +21,11 @@ function App() {
               <Header />
               <Gap />
               <Route path="/" exact component={Home} />
+              <Route
+                path="/types/:type"
+                exact
+                component={() => <Home key={window.location.pathname} />}
+              />
               <Route path="/checkout/cart" exact component={Checkout} />
               <Route
                 path="/search/:pokemon"

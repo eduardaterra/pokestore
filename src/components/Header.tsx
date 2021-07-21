@@ -1,13 +1,12 @@
-import React, { FormEvent, useContext } from "react";
+import React, { FormEvent, useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 import { CartContext } from "../contexts/CartContext";
 
-import styled from "styled-components";
 import Logo from "../assets/images/logo.svg";
 import Cart from "../assets/images/cart.svg";
 import Search from "../assets/images/search-icon.svg";
-import { useHistory } from "react-router-dom";
-import { useState } from "react";
 
 const Header: React.FC = () => {
   const [searchPokemon, setSearchPokemon] = useState("");

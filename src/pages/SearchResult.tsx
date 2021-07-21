@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
+import FiltersModalContext from "../contexts/FiltersModalContext";
 import useFetchPokemon, { Pokemon } from "../hooks/useFetchPokemon";
 
 import PokemonCard from "../components/PokemonCard";
@@ -11,14 +12,18 @@ import PokemonInfoModal from "../components/PokemonInfoModal";
 import Spinner from "../components/Spinner";
 
 const SearchResult = () => {
-  const { pokemon }: { pokemon: string } = useParams();
   const [searchList, setSearchList] = useState<Pokemon[]>([]);
-  const { fetchPokemonSearch } = useFetchPokemon();
   const [isLoading, setIsLoading] = useState(true);
   const [countPokemon, setCountPokemon] = useState(0);
+
   const { showModal, setShowModal, pokemonInfo } = useContext(
     PokemonInfoModalContext
   );
+  const { path, setPath } = useContext(FiltersModalContext);
+
+  const { fetchPokemonSearch } = useFetchPokemon();
+
+  const { pokemon }: { pokemon: string } = useParams();
 
   useEffect(() => {
     fetchPokemonSearch(searchList, pokemon).then((res) => {
@@ -73,9 +78,9 @@ const ListWrapper = styled.div`
 const PokemonListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, auto);
-  width: 100%;
+  max-width: 100%;
   justify-content: center;
-  margin-top: 1.6rem;
+  margin: 1.6rem 0 0 3rem;
   column-gap: 2rem;
   row-gap: 2rem;
 `;

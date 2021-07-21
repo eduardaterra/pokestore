@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+import { useLocation, useParams } from "react-router-dom";
 
 import useFetchPokemon, { PokemonList } from "../hooks/useFetchPokemon";
 import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
@@ -8,21 +9,33 @@ import PokemonCard from "../components/PokemonCard";
 import PokemonInfoModal from "../components/PokemonInfoModal";
 import Spinner from "../components/Spinner";
 import FiltersModal from "../components/FiltersModal";
+import FiltersModalContext from "../contexts/FiltersModalContext";
 
 const Home = () => {
   const [pokemonList, setPokemonList] = useState<PokemonList>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   const { fetchPokemonList } = useFetchPokemon();
 
   const { showModal, setShowModal, pokemonInfo } = useContext(
     PokemonInfoModalContext
   );
+  const { setPath } = useContext(FiltersModalContext);
+
+  const { type }: { type: string } = useParams();
+  const { pathname } = useLocation();
+  const splitedPathname = pathname.split("/");
+  splitedPathname.splice(splitedPathname.indexOf(type), 1);
+
+  console.log(typeof splitedPathname.join("/"));
 
   useEffect(() => {
-    fetchPokemonList(pokemonList).then((res) => {
+    fetchPokemonList(pokemonList, type).then((res) => {
+      setPath(splitedPathname.join("/"));
       setPokemonList(res);
       setIsLoading(false);
+      setShowFilters(true);
     });
   }, []);
 
@@ -59,7 +72,7 @@ const Home = () => {
             )}
           </Footer>
         </ListWrapper>
-        {isLoading ? null : <FiltersModal />}
+        {showFilters ? <FiltersModal /> : null}
       </HomeContainer>
     </>
   );
@@ -83,7 +96,7 @@ const PokemonListContainer = styled.div`
   grid-template-columns: repeat(4, auto);
   width: 100%;
   justify-content: center;
-  margin-top: 1.6rem;
+  margin: 1.6rem 0 0 6.2rem;
   column-gap: 2rem;
   row-gap: 2rem;
 `;
@@ -92,7 +105,7 @@ const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem;
+  margin: 2rem 0 2rem 6.2rem;
 `;
 
 const FetchMoreButton = styled.button`
