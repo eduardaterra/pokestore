@@ -13,13 +13,15 @@ type AsideProps = {
 };
 
 const FiltersModal = () => {
-  const { showFilters, setShowFilters, path } = useContext(FiltersModalContext);
-  const { fetchPokemonProps, fetchPokemonTypes } = useFetchPokemon();
-  const [order, setOrder] = useState<String[]>([]);
-  const [types, setTypes] = useState<String[]>([]);
+  const [orderList, setOrderList] = useState<String[]>([]);
+  const [typelist, setTypeList] = useState<String[]>([]);
   const [slide, setSlide] = useState("");
-
   const [showScrollbar, setShowScrollbar] = useState("unset");
+
+  const { showFilters, setShowFilters, order, type, setType, setOrder } =
+    useContext(FiltersModalContext);
+  const { fetchPokemonProps, fetchPokemonTypes } = useFetchPokemon();
+
   document.body.style.overflow = showScrollbar;
 
   return (
@@ -29,9 +31,9 @@ const FiltersModal = () => {
           setShowFilters(true);
           setShowScrollbar("hidden");
           fetchPokemonProps().then((res) => {
-            setOrder(res);
+            setOrderList(res);
           });
-          fetchPokemonTypes().then((res) => setTypes(res));
+          fetchPokemonTypes().then((res) => setTypeList(res));
           setSlide("slideIn");
         }}
       >
@@ -52,16 +54,21 @@ const FiltersModal = () => {
               <ExitImg src={LeftArrow} />
             </ExitButton>
             <Title>order by</Title>
-            {order.map((prop) =>
+            {orderList.map((prop) =>
               prop === "_id" ||
               prop === "__v" ||
               prop === "types" ||
               prop === "sprite" ? null : (
                 <Link
-                  to={`${path}order/${prop}`}
+                  to={
+                    type === undefined || type === ""
+                      ? `?order=${prop}`
+                      : `?type=${type}&order=${prop}`
+                  }
                   onClick={() => {
                     setShowFilters(false);
                     setShowScrollbar("unset");
+                    setOrder(prop as string);
                   }}
                 >
                   {prop}
@@ -69,12 +76,17 @@ const FiltersModal = () => {
               )
             )}
             <Title>type filters</Title>
-            {types.map((type) => (
+            {typelist.map((type) => (
               <Link
-                to={`${path}types/${type}/`}
+                to={
+                  order === undefined || order === ""
+                    ? `?type=${type}`
+                    : `?type=${type}&order=${order}`
+                }
                 onClick={() => {
                   setShowFilters(false);
                   setShowScrollbar("unset");
+                  setType(type as string);
                 }}
               >
                 {type}
@@ -94,7 +106,6 @@ const FilterButton = styled.button`
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-  margin: 1.6rem;
 
   display: flex;
   align-items: center;

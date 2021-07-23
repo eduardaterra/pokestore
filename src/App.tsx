@@ -20,25 +20,21 @@ function App() {
             <PokemonInfoModalProvider>
               <Header />
               <Gap />
-              <Route path="/" exact component={Home} />
               <Route
-                path="/types/:type"
+                path="/"
                 exact
-                component={() => <Home key={window.location.pathname} />}
+                component={() => <Home key={window.location.search} />}
               />
-              <Route
-                path="/order/:order"
-                exact
-                component={() => <Home key={window.location.pathname} />}
-              />
-              <Route path="/checkout/cart" exact component={Checkout} />
               <Route
                 path="/search/:pokemon"
                 exact
                 component={() => (
-                  <SearchResult key={window.location.pathname} />
+                  <SearchResult
+                    key={window.location.pathname || window.location.search}
+                  />
                 )}
               />
+              <Route path="/checkout/cart" exact component={Checkout} />
             </PokemonInfoModalProvider>
           </CartProvider>
         </FiltersModalProvider>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import useFetchPokemon, { PokemonList } from "../hooks/useFetchPokemon";
 import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
@@ -22,15 +22,21 @@ const Home = () => {
   const { showModal, setShowModal, pokemonInfo } = useContext(
     PokemonInfoModalContext
   );
-  const { setPath, setOrder } = useContext(FiltersModalContext);
+  const { setOrder, setType } = useContext(FiltersModalContext);
 
-  const { type }: { type: string } = useParams();
-  const { order }: { order: string } = useParams();
+  const location = useLocation();
+
+  const useQuery = () => {
+    return new URLSearchParams(location.search);
+  };
+
+  const queryType = useQuery().get("type");
+  const queryOrder = useQuery().get("order");
 
   useEffect(() => {
-    fetchPokemonList(pokemonList, type, order).then((res) => {
-      setOrder(order);
-      setPath("/");
+    fetchPokemonList(pokemonList, queryType, queryOrder).then((res) => {
+      setType(queryType !== null ? queryType : "");
+      setOrder(queryOrder !== null ? queryOrder : "");
       setCountPokemon(res.count);
       setPokemonList(res.results);
       setIsLoading(false);
@@ -60,12 +66,12 @@ const Home = () => {
                 onClick={() => {
                   setIsLoading(true);
 
-                  fetchPokemonList(pokemonList, type, order).then((res) => {
-                    setOrder(order);
-                    setPath("/");
-                    setPokemonList(res.results);
-                    setTimeout(() => setIsLoading(false), 1000);
-                  });
+                  fetchPokemonList(pokemonList, queryType, queryOrder).then(
+                    (res) => {
+                      setPokemonList(res.results);
+                      setTimeout(() => setIsLoading(false), 1000);
+                    }
+                  );
                 }}
               >
                 View More
@@ -73,7 +79,7 @@ const Home = () => {
             ) : null}
           </Footer>
         </ListWrapper>
-        {showFilters ? <FiltersModal /> : null}
+        {showFilters ? <FiltersModal /> : <FilterGap />}
       </HomeContainer>
     </>
   );
@@ -100,6 +106,10 @@ const PokemonListContainer = styled.div`
   margin: 1.6rem 0 0 6.2rem;
   column-gap: 2rem;
   row-gap: 2rem;
+`;
+
+const FilterGap = styled.div`
+  width: 6.2rem;
 `;
 
 const Footer = styled.div`
