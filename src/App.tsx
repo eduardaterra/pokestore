@@ -30,7 +30,7 @@ function App() {
                 exact
                 component={() => (
                   <SearchResult
-                    key={window.location.pathname || window.location.search}
+                    key={window.location.search || window.location.pathname}
                   />
                 )}
               />

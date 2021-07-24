@@ -106,7 +106,7 @@ const FilterButton = styled.button`
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-
+  margin-top: 1.6rem;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -21,7 +21,7 @@ const SearchResult = () => {
   const { showModal, setShowModal, pokemonInfo } = useContext(
     PokemonInfoModalContext
   );
-  const { setOrder, setType } = useContext(FiltersModalContext);
+  const { setOrder, setType, type, order } = useContext(FiltersModalContext);
 
   const { fetchPokemonSearch } = useFetchPokemon();
 
@@ -56,9 +56,28 @@ const SearchResult = () => {
         setShowModal={setShowModal}
         pokemonInfo={pokemonInfo}
       />
-      {<Title>you are seeing results for {pokemon}!</Title>}
       <HomeContainer>
         <ListWrapper>
+          <TitleContainer>
+            {isLoading ? null : type === "" && order === "" ? (
+              <Title>results for {pokemon}</Title>
+            ) : (
+              <>
+                <Title>results for {pokemon}</Title>
+                {order === "" ? (
+                  type !== "" ? (
+                    <Subtitle>filtered by {type}</Subtitle>
+                  ) : null
+                ) : type === "" ? (
+                  <Subtitle>ordered by {order}</Subtitle>
+                ) : (
+                  <Subtitle>
+                    filtered by {type} and ordered by {order}
+                  </Subtitle>
+                )}
+              </>
+            )}
+          </TitleContainer>
           {searchList.length >= 4 ? (
             <PokemonListContainer>
               {searchList.map(({ ...pokemon }) => (
@@ -102,6 +121,13 @@ const SearchResult = () => {
   );
 };
 
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1.6rem;
+`;
+
 const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -109,40 +135,46 @@ const ListWrapper = styled.div`
   justify-content: center;
 `;
 
-const Title = styled.h1`
-  color: var(--gray);
-  font-size: 1.3rem;
+const TitleContainer = styled.div`
+  margin: 1.6rem 0 0rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
-  margin: 1.6rem 0rem;
-  text-align: center;
 `;
 
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-left: 4.5rem;
+const Title = styled.h1`
+  margin: 0rem 0 1rem 6.2rem;
+  color: var(--gray);
+  font-size: 1.3rem;
+  text-align: start;
+`;
 
-  gap: 1.6rem;
+const Subtitle = styled.p`
+  margin: 0 0 1.6rem 6.2rem;
+  color: var(--light-gray);
+  font-size: 0.8rem;
 `;
 
 const PokemonListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, auto);
-  min-width: 100%;
+  width: 100%;
   justify-content: center;
+  margin: 0 0 0 4.5rem;
   column-gap: 2rem;
   row-gap: 2rem;
 `;
-
 const PokemonGridlessContainer = styled.div`
-  min-width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 1.6rem 0 0 0rem;
   gap: 2rem;
+  margin: 0 0 0 6.2rem;
+  min-width: 100%;
+  justify-content: center;
+  width: 100%;
 `;
+
 const FilterGap = styled.div`
   width: 6.2rem;
 `;
@@ -151,7 +183,7 @@ const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem;
+  margin: 2rem 0 2rem 6.2rem;
 `;
 
 const FetchMoreButton = styled.button`
