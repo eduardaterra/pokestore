@@ -1,17 +1,36 @@
+import { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { useContext } from "react";
+
 import { CartContext } from "../contexts/CartContext";
+
 import CartProducts from "../components/CartProducts";
+import ConcludedShoppingModal from "../components/ConcludedShoppingModal";
+
 import emptyPokeball from "../assets/images/empty-pokeball.svg";
 import Cart from "../assets/images/cart.svg";
-import { useHistory, Link } from "react-router-dom";
+
+type isActive = {
+  filter: string;
+  cursor: string;
+};
 
 const Checkout = () => {
-  const { totalItems, totalPrice, groupedCartList, setPokemonCartList } =
-    useContext(CartContext);
+  const [showModal, setShowModal] = useState(false);
+
+  const {
+    totalItems,
+    totalPrice,
+    groupedCartList,
+    pokemonCartList,
+    setPokemonCartList,
+  } = useContext(CartContext);
+
   const history = useHistory();
+
   return (
     <>
+      <ConcludedShoppingModal showModal={showModal} />
       <CheckoutContainer>
         <CartListContainer>
           <Title>
@@ -51,14 +70,32 @@ const Checkout = () => {
               total: <strong>¥ {totalPrice}</strong>
             </p>
             <ButtonsContainer>
-              <CleanCartButton onClick={() => setPokemonCartList([])}>
+              <CleanCartButton
+                onClick={() => setPokemonCartList([])}
+                filter={pokemonCartList.length === 0 ? "opacity(0.5)" : "none"}
+                cursor={
+                  pokemonCartList.length === 0 ? "not-allowed" : "pointer"
+                }
+              >
                 REMOVE ALL POKEMON
               </CleanCartButton>
               <BuyButton
-                onClick={() => {
-                  setPokemonCartList([]);
-                  history.push("/");
-                }}
+                onClick={
+                  pokemonCartList.length > 0
+                    ? () => {
+                        setPokemonCartList([]);
+                        setShowModal(true);
+                        setTimeout(() => {
+                          setShowModal(false);
+                          history.push("/");
+                        }, 3000);
+                      }
+                    : () => {}
+                }
+                filter={pokemonCartList.length === 0 ? "opacity(0.5)" : "none"}
+                cursor={
+                  pokemonCartList.length === 0 ? "not-allowed" : "pointer"
+                }
               >
                 <img src={Cart} alt="CartImage" />
                 BUY
@@ -184,7 +221,7 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-const CleanCartButton = styled.button`
+const CleanCartButton = styled.button<Pick<isActive, "filter" | "cursor">>`
   border: 1px solid var(--red);
   border-radius: 10rem;
   background: #fff;
@@ -193,13 +230,16 @@ const CleanCartButton = styled.button`
   width: 100%;
   height: 2rem;
   cursor: pointer;
+  cursor: ${({ cursor }) => cursor};
+  filter: ${({ filter }) => filter};
 
   &:hover {
-    filter: brightness(0.8);
+    filter: ${({ filter }) =>
+      filter === "opacity(0.5)" ? "opacity(0.5)" : "brightness(0.8)"};
   }
 `;
 
-const BuyButton = styled.button`
+const BuyButton = styled.button<Pick<isActive, "filter" | "cursor">>`
   border: 0;
   border-radius: 10rem;
   background: var(--red);
@@ -211,10 +251,12 @@ const BuyButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  cursor: pointer;
+  cursor: ${({ cursor }) => cursor};
+  filter: ${({ filter }) => filter};
 
   &:hover {
-    filter: brightness(0.8);
+    filter: ${({ filter }) =>
+      filter === "opacity(0.5)" ? "opacity(0.5)" : "brightness(0.8)"};
   }
   > img {
     width: 1.5rem;

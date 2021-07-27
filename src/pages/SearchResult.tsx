@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
@@ -11,6 +11,8 @@ import PokemonCard from "../components/PokemonCard";
 import PokemonInfoModal from "../components/PokemonInfoModal";
 import Spinner from "../components/Spinner";
 import FiltersModal from "../components/FiltersModal";
+
+import Dragonite from "../assets/images/dragonite.svg";
 
 const SearchResult = () => {
   const [searchList, setSearchList] = useState<Pokemon[]>([]);
@@ -78,7 +80,13 @@ const SearchResult = () => {
               </>
             )}
           </TitleContainer>
-          {searchList.length >= 4 ? (
+          {isLoading ? null : searchList.length === 0 ? (
+            <PokemonNotFoundContainer>
+              <img src={Dragonite} alt="dragonite" />
+              <p>{`the pokédex doesn't have any info about this pokémon :(`}</p>
+              <Link to="/">return to the home</Link>
+            </PokemonNotFoundContainer>
+          ) : searchList.length >= 4 ? (
             <PokemonListContainer>
               {searchList.map(({ ...pokemon }) => (
                 <PokemonCard pokemon={pokemon} key={pokemon.key} />
@@ -115,7 +123,11 @@ const SearchResult = () => {
             ) : null}
           </Footer>
         </ListWrapper>
-        {showFilters ? <FiltersModal /> : <FilterGap />}
+        {showFilters && searchList.length > 4 ? (
+          <FiltersModal />
+        ) : (
+          <FilterGap />
+        )}
       </HomeContainer>
     </>
   );
@@ -157,12 +169,40 @@ const Subtitle = styled.p`
   font-size: 0.8rem;
 `;
 
+const PokemonNotFoundContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 6rem 0 0 4.5rem;
+
+  > img {
+    width: 12rem;
+    opacity: 0.5;
+    margin: 0 0 1rem 6.2rem;
+  }
+  > p {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-align: center;
+    line-height: 1rem;
+    margin: 0 0 0 3rem;
+  }
+
+  > a {
+    color: var(--light-gray);
+    font-size: 0.8rem;
+    margin: 0 0 0 3rem;
+  }
+`;
+
 const PokemonListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, auto);
   width: 100%;
   justify-content: center;
-  margin: 0 0 0 4.5rem;
+  margin: 0 0 0 6.5rem;
   column-gap: 2rem;
   row-gap: 2rem;
 `;

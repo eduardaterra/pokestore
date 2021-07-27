@@ -30,7 +30,10 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
         }}
       />
 
-      <PokemonName>{pokemon.name}</PokemonName>
+      <PokemonName>
+        {pokemon.name}{" "}
+        <strong>#{pokemon.key.toString().padStart(2, "0")}</strong>
+      </PokemonName>
       <PokemonTypeContainer>
         {pokemon.types.map((type) => (
           <PokemonType
@@ -38,6 +41,7 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
             pokemonType={type}
             fontSize={0.45}
             backgroundSize={{ height: 1.33, width: 4.4 }}
+            key={type}
           />
         ))}
       </PokemonTypeContainer>
@@ -60,7 +64,6 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
 const PokemonCardComponent = styled.div`
   display: flex;
   flex-direction: column;
-  /* border: 1px solid var(--light-gray); */
   border-radius: 1rem;
   width: 15rem;
   height: 18rem;
@@ -72,10 +75,14 @@ const PokemonCardComponent = styled.div`
 const PokemonName = styled.h2`
   justify-content: center;
   align-content: center;
-  text-align: justify;
+  text-align: center;
   margin: 0.5rem;
   font-size: 0.8rem;
   color: var(--dark-gray);
+  > strong {
+    color: var(--gray);
+    font-size: 0.6rem;
+  }
 `;
 
 const PokemonTypeContainer = styled.div`

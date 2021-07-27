@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { Pokemon } from "../hooks/useFetchPokemon";
 import { CartContext } from "../contexts/CartContext";
+import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
+
+import PokemonColor, { A } from "../helpers/PokemonColor";
 
 import AddToCartButton from "./AddToCartButton";
 import PokemonType from "./PokemonType";
 import PokemonImage from "./PokemonImage";
-import PokemonColor, { A } from "../helpers/PokemonColor";
-import { PokemonInfoModalContext } from "../contexts/PokemonInfoModalContext";
 
 type ModalProps = {
   showModal: boolean;
@@ -17,9 +18,10 @@ type ModalProps = {
 };
 
 const PokemonInfoModal = (props: ModalProps) => {
-  const { showModal, setShowModal, pokemonInfo } = props;
   const { showScrollbar } = useContext(PokemonInfoModalContext);
   const { setPokemonCartList, pokemonCartList } = useContext(CartContext);
+
+  const { showModal, setShowModal, pokemonInfo } = props;
 
   document.body.style.overflow = showScrollbar;
 
@@ -50,6 +52,9 @@ const PokemonInfoModal = (props: ModalProps) => {
             </PokemonNameContainer>
 
             <PokemonInfoContainer>
+              key:{" "}
+              <strong>#{pokemonInfo.key.toString().padStart(2, "0")}</strong>
+              <br />
               base experience: <strong>{pokemonInfo.base_experience}exp</strong>
               <br />
               height: <strong>{pokemonInfo.height / 10}m</strong>

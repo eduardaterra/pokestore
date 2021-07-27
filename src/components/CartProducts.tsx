@@ -1,10 +1,14 @@
 import { useContext } from "react";
 import styled from "styled-components";
+
 import { CartContext } from "../contexts/CartContext";
+
 import { Pokemon } from "../hooks/useFetchPokemon";
-import PokemonColor, { A } from "../helpers/PokemonColor";
+
 import PokemonImage from "./PokemonImage";
 import PokemonType from "./PokemonType";
+
+import PokemonColor, { A } from "../helpers/PokemonColor";
 
 const CartProducts: React.FC<{ pokemon: Pokemon; pokemonList: Pokemon[] }> = ({
   pokemon,
@@ -43,6 +47,8 @@ const CartProducts: React.FC<{ pokemon: Pokemon; pokemonList: Pokemon[] }> = ({
         </PokemonTypeContainer>
       </PokemonTitle>
       <PokemonInfoContainer>
+        key: <strong>#{pokemon.key.toString().padStart(2, "0")}</strong>
+        <br />
         base experience:
         <strong>{pokemon.base_experience}exp</strong>
         <br />

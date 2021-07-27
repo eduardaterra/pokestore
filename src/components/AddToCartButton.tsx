@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Cart from "../assets/images/cart.svg";
 
 type AddToCartType = {

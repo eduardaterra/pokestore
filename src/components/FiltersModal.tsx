@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import useFetchPokemon from "../hooks/useFetchPokemon";
 import FiltersModalContext from "../contexts/FiltersModalContext";
+
 import Filter from "../assets/images/filter.svg";
 import LeftArrow from "../assets/images/left-arrow.svg";
 
@@ -14,15 +15,26 @@ type AsideProps = {
 
 const FiltersModal = () => {
   const [orderList, setOrderList] = useState<String[]>([]);
-  const [typelist, setTypeList] = useState<String[]>([]);
+  const [typeList, setTypeList] = useState<String[]>([]);
   const [slide, setSlide] = useState("");
   const [showScrollbar, setShowScrollbar] = useState("unset");
 
   const { showFilters, setShowFilters, order, type, setType, setOrder } =
     useContext(FiltersModalContext);
+
   const { fetchPokemonProps, fetchPokemonTypes } = useFetchPokemon();
 
   document.body.style.overflow = showScrollbar;
+
+  useEffect(() => {
+    fetchPokemonProps().then((res) => {
+      setOrderList(res);
+    });
+    fetchPokemonTypes().then((res) => {
+      setTypeList(res);
+      console.log(typeList);
+    });
+  }, []);
 
   return (
     <>
@@ -30,10 +42,6 @@ const FiltersModal = () => {
         onClick={() => {
           setShowFilters(true);
           setShowScrollbar("hidden");
-          fetchPokemonProps().then((res) => {
-            setOrderList(res);
-          });
-          fetchPokemonTypes().then((res) => setTypeList(res));
           setSlide("slideIn");
         }}
       >
@@ -70,26 +78,28 @@ const FiltersModal = () => {
                     setShowScrollbar("unset");
                     setOrder(prop as string);
                   }}
+                  key={prop as React.Key}
                 >
                   {prop}
                 </Link>
               )
             )}
             <Title>type filters</Title>
-            {typelist.map((type) => (
+            {typeList.map((prop) => (
               <Link
                 to={
                   order === undefined || order === ""
-                    ? `?type=${type}`
-                    : `?type=${type}&order=${order}`
+                    ? `?type=${prop}`
+                    : `?type=${prop}&order=${order}`
                 }
                 onClick={() => {
                   setShowFilters(false);
                   setShowScrollbar("unset");
                   setType(type as string);
                 }}
+                key={prop as React.Key}
               >
-                {type}
+                {prop}
               </Link>
             ))}
           </FilterAside>

@@ -10,16 +10,17 @@ import { PokemonInfoModalProvider } from "./contexts/PokemonInfoModalContext";
 import { FiltersModalProvider } from "./contexts/FiltersModalContext";
 
 import Header from "./components/Header";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <FiltersModalProvider>
-          <CartProvider>
-            <PokemonInfoModalProvider>
-              <Header />
-              <Gap />
+      <FiltersModalProvider>
+        <CartProvider>
+          <PokemonInfoModalProvider>
+            <Header />
+            <Gap />
+            <Switch>
               <Route
                 path="/"
                 exact
@@ -35,10 +36,11 @@ function App() {
                 )}
               />
               <Route path="/checkout/cart" exact component={Checkout} />
-            </PokemonInfoModalProvider>
-          </CartProvider>
-        </FiltersModalProvider>
-      </Switch>
+              <Route component={NotFound} />
+            </Switch>
+          </PokemonInfoModalProvider>
+        </CartProvider>
+      </FiltersModalProvider>
     </BrowserRouter>
   );
 }

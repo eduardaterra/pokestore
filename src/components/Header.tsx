@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { CartContext } from "../contexts/CartContext";
+import FiltersModalContext from "../contexts/FiltersModalContext";
 
 import Logo from "../assets/images/logo.svg";
 import Cart from "../assets/images/cart.svg";
@@ -10,7 +11,10 @@ import Search from "../assets/images/search-icon.svg";
 
 const Header: React.FC = () => {
   const [searchPokemon, setSearchPokemon] = useState("");
+
   const { pokemonCartList } = useContext(CartContext);
+  const { setShowFilters } = useContext(FiltersModalContext);
+
   const history = useHistory();
 
   const handleCheckoutClick = () => {
@@ -18,12 +22,13 @@ const Header: React.FC = () => {
   };
 
   const handleHomeClick = () => {
+    setShowFilters(false);
     history.push("/");
   };
 
   const handleSearchPokemon = (event: FormEvent) => {
     event.preventDefault();
-    searchPokemon.trim().toLowerCase();
+    setShowFilters(false);
     if (searchPokemon === "") {
       return;
     }
@@ -53,7 +58,7 @@ const Header: React.FC = () => {
                 type="text"
                 placeholder="search for your pokémon here"
                 onChange={(event) => {
-                  setSearchPokemon(event.target.value);
+                  setSearchPokemon(event.target.value.trimEnd().toLowerCase());
                 }}
               />
               <SearchButton type="submit">
