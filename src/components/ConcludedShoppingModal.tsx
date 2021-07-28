@@ -7,8 +7,15 @@ type ModalProps = {
 };
 
 const ConcludedShoppingModal = (props: ModalProps) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [time, setTime] = useState(3);
   const { showModal } = props;
+
+  const img = new Image();
+  img.onload = () => {
+    setIsLoading(false);
+  };
+  img.src = Pikachu;
 
   if (time > 0 && showModal) {
     setTimeout(() => {
@@ -16,7 +23,7 @@ const ConcludedShoppingModal = (props: ModalProps) => {
     }, 1000);
   }
 
-  return showModal ? (
+  return showModal && !isLoading ? (
     <ModalOverlay>
       <ModalContainer>
         <h1>thanks for your preference!</h1>

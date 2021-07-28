@@ -15,6 +15,7 @@ import FiltersModal from "../components/FiltersModal";
 import Dragonite from "../assets/images/dragonite.svg";
 
 const SearchResult = () => {
+  const [isDragoniteLoading, setIsDragoniteLoading] = useState(true);
   const [searchList, setSearchList] = useState<Pokemon[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [countPokemon, setCountPokemon] = useState(0);
@@ -37,6 +38,12 @@ const SearchResult = () => {
 
   const queryType = useQuery().get("type");
   const queryOrder = useQuery().get("order");
+
+  const img = new Image();
+  img.onload = () => {
+    setIsDragoniteLoading(false);
+  };
+  img.src = Dragonite;
 
   useEffect(() => {
     fetchPokemonSearch(searchList, pokemon, queryType, queryOrder).then(
@@ -81,11 +88,13 @@ const SearchResult = () => {
             )}
           </TitleContainer>
           {isLoading ? null : searchList.length === 0 ? (
-            <PokemonNotFoundContainer>
-              <img src={Dragonite} alt="dragonite" />
-              <p>{`the pokédex doesn't have any info about this pokémon :(`}</p>
-              <Link to="/">return to the home</Link>
-            </PokemonNotFoundContainer>
+            isDragoniteLoading ? null : (
+              <PokemonNotFoundContainer>
+                <img src={Dragonite} alt="dragonite" />
+                <p>{`the pokédex doesn't have any info about this pokémon :(`}</p>
+                <Link to="/">return to the home</Link>
+              </PokemonNotFoundContainer>
+            )
           ) : searchList.length >= 4 ? (
             <PokemonListContainer>
               {searchList.map(({ ...pokemon }) => (

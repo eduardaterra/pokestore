@@ -16,6 +16,7 @@ type isActive = {
 };
 
 const Checkout = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   const {
@@ -28,7 +29,13 @@ const Checkout = () => {
 
   const history = useHistory();
 
-  return (
+  const img = new Image();
+  img.onload = () => {
+    setIsLoading(false);
+  };
+  img.src = emptyPokeball;
+
+  return !isLoading ? (
     <>
       <ConcludedShoppingModal showModal={showModal} />
       <CheckoutContainer>
@@ -106,7 +113,7 @@ const Checkout = () => {
         </SummaryContainer>
       </CheckoutContainer>
     </>
-  );
+  ) : null;
 };
 
 const CheckoutContainer = styled.div`

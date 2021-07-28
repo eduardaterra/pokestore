@@ -28,7 +28,7 @@ Remembering that you need to have a <strong>Figma account</strong> to access it.
 ## 🌱 Getting started
 
 <br/>
-<p>You can access the deployed project by clicking <a href="https://pokestore-app.herokuapp.com/">here</a>.<br>
+<p>You can access the deployed project by clicking <a href="https://pokestore-app.netlify.app/">here</a>.<br>
 <br>
 <p>Also, you can clone the repository and access the files. You will need to have installed <a href="https://nodejs.org/en/">Node.js</a>.
 

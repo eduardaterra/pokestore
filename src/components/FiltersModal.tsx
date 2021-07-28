@@ -14,6 +14,8 @@ type AsideProps = {
 };
 
 const FiltersModal = () => {
+  const [filterIsLoading, setFilterIsLoading] = useState(true);
+  const [arrowIsLoading, setArrowIsLoading] = useState(true);
   const [orderList, setOrderList] = useState<String[]>([]);
   const [typeList, setTypeList] = useState<String[]>([]);
   const [slide, setSlide] = useState("");
@@ -23,6 +25,18 @@ const FiltersModal = () => {
     useContext(FiltersModalContext);
 
   const { fetchPokemonProps, fetchPokemonTypes } = useFetchPokemon();
+
+  const arrowImg = new Image();
+  arrowImg.onload = () => {
+    setArrowIsLoading(false);
+  };
+  arrowImg.src = LeftArrow;
+
+  const filterImg = new Image();
+  filterImg.onload = () => {
+    setFilterIsLoading(false);
+  };
+  filterImg.src = Filter;
 
   document.body.style.overflow = showScrollbar;
 
@@ -38,16 +52,18 @@ const FiltersModal = () => {
 
   return (
     <>
-      <FilterButton
-        onClick={() => {
-          setShowFilters(true);
-          setShowScrollbar("hidden");
-          setSlide("slideIn");
-        }}
-      >
-        <FilterImg src={Filter} />
-      </FilterButton>
-      {showFilters ? (
+      {filterIsLoading ? null : (
+        <FilterButton
+          onClick={() => {
+            setShowFilters(true);
+            setShowScrollbar("hidden");
+            setSlide("slideIn");
+          }}
+        >
+          <FilterImg src={Filter} />
+        </FilterButton>
+      )}
+      {showFilters && !arrowIsLoading ? (
         <Overlay>
           <FilterAside slide={slide}>
             <ExitButton

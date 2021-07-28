@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
@@ -5,7 +6,15 @@ import styled from "styled-components";
 import Snorlax from "../assets/images/snorlax.svg";
 
 const NotFound = () => {
-  return (
+  const [isLoading, setIsLoading] = useState(true);
+
+  const img = new Image();
+  img.onload = () => {
+    setIsLoading(false);
+  };
+  img.src = Snorlax;
+
+  return isLoading ? null : (
     <PageNotFoundContainer>
       <img src={Snorlax} alt="snorlax" />
       <p>{`error 404: page not found :(`}</p>
