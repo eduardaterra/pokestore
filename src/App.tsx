@@ -47,6 +47,9 @@ function App() {
 const Gap = styled.div`
   width: 100%;
   height: 6.4rem;
+  @media (max-width: 1000px) {
+    height: 4.7rem;
+  }
 `;
 
 export default App;

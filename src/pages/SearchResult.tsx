@@ -144,6 +144,10 @@ const HomeContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 1.6rem;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    margin-top: 1.6rem;
+  }
 `;
 
 const ListWrapper = styled.div`
@@ -155,22 +159,39 @@ const ListWrapper = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
   width: 100%;
-  margin: 1.6rem 0;
+  margin: 2rem 0;
+  @media (max-width: 600px) {
+    width: 100%;
+    margin: 3.8rem 0 1rem 0;
+  }
 `;
 
 const Title = styled.h1`
   color: var(--gray);
   font-size: 1.3rem;
-  text-align: start;
+
+  @media (max-width: 1000px) {
+    font-size: 1rem;
+  }
+  @media (max-width: 600px) {
+    width: 60%;
+    text-align: center;
+    line-height: 1rem;
+    font-size: 0.58rem;
+    margin: 0 0 1rem 1rem;
+  }
 `;
 
 const Subtitle = styled.p`
   margin-top: 1.6rem;
   color: var(--light-gray);
   font-size: 0.8rem;
+  @media (max-width: 600px) {
+    font-size: 0.48rem;
+    margin: 0 0 1rem 1rem;
+  }
 `;
 
 const FilterContainer = styled.div`
@@ -204,6 +225,20 @@ const PokemonNotFoundContainer = styled.div`
     color: var(--light-gray);
     font-size: 0.8rem;
   }
+  @media (max-width: 600px) {
+    margin: 0;
+    > img {
+      margin-left: 2rem;
+      width: 8rem;
+    }
+    > p {
+      font-size: 0.6rem;
+      width: 90%;
+    }
+    > a {
+      font-size: 0.55rem;
+    }
+  }
 `;
 
 const PokemonListContainer = styled.div`
@@ -213,15 +248,31 @@ const PokemonListContainer = styled.div`
   justify-content: center;
   column-gap: 2rem;
   row-gap: 2rem;
+
+  @media (max-width: 1000px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, auto);
+    gap: 1rem;
+  }
 `;
 
 const PokemonGridlessContainer = styled.div`
   display: flex;
   gap: 2rem;
-  margin: 0 0 0 6.2rem;
   min-width: 100%;
   justify-content: center;
   width: 100%;
+  @media (max-width: 1000px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, auto);
+    gap: 1rem;
+  }
 `;
 
 const Footer = styled.div`
@@ -229,6 +280,9 @@ const Footer = styled.div`
   align-items: center;
   justify-content: center;
   margin: 2rem 0;
+  @media (max-width: 600px) {
+    margin: 2rem 0;
+  }
 `;
 
 const FetchMoreButton = styled.button`
@@ -239,6 +293,11 @@ const FetchMoreButton = styled.button`
   width: 20rem;
   height: 2.3rem;
   cursor: pointer;
+  @media (max-width: 600px) {
+    width: 15rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
 `;
 
 export default SearchResult;

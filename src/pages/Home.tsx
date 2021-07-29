@@ -103,6 +103,7 @@ const HomeContainer = styled.div`
   gap: 1.6rem;
   @media (max-width: 600px) {
     flex-direction: column;
+    margin-top: 1.6rem;
   }
 `;
 
