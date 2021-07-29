@@ -130,10 +130,9 @@ const CheckoutContainer = styled.div`
 const CartListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--light-gray);
-  border-radius: 1rem;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 
+  border-radius: 1rem;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
   padding: 1rem;
   width: 60vw;
   max-height: 81vh;
@@ -181,9 +180,8 @@ const EmptyCart = styled.img`
 const SummaryContainer = styled.div`
   width: 25vw;
   height: 35vh;
-  border: 1px solid var(--light-gray);
   border-radius: 1rem;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
   padding: 1rem;
   > p {
     color: var(--gray);

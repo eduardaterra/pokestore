@@ -65,11 +65,18 @@ const PokemonCardComponent = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
-  width: 15rem;
+  width: 14rem;
   height: 18rem;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
 
   align-items: center;
+  @media (max-width: 1000px) {
+    width: 10rem;
+    height: 15rem;
+  }
+  @media (max-width: 350px) {
+    width: 9rem;
+  }
 `;
 
 const PokemonName = styled.h2`
@@ -82,6 +89,12 @@ const PokemonName = styled.h2`
   > strong {
     color: var(--gray);
     font-size: 0.6rem;
+  }
+  @media (max-width: 1000px) {
+    font-size: 0.55rem;
+    > strong {
+      font-size: 0.45rem;
+    }
   }
 `;
 
@@ -98,6 +111,9 @@ const PokemonPrice = styled.h3`
   color: #777777;
   font-size: 0.8rem;
   margin: 0.8rem;
+  @media (max-width: 1000px) {
+    font-size: 0.6rem;
+  }
 `;
 
 export default PokemonCard;

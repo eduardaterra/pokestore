@@ -80,18 +80,39 @@ const HeaderComponent = styled.div`
   flex-direction: column;
   width: 100%;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
+  max-width: 100vw;
 `;
 
 const HeaderContent = styled.div`
   width: 100%;
   height: 5rem;
   background-color: var(--red);
+
+  @media (max-width: 600px) {
+    height: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const LogoImage = styled.img`
   width: 12rem;
   margin: 1rem;
   cursor: pointer;
+  @media (max-width: 600px) {
+    width: 8rem;
+    position: absolute;
+    transform: translate(-1rem, -1.2rem);
+  }
+`;
+const HeaderWrapper = styled.div`
+  display: flex;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+  }
 `;
 
 const CartWrapper = styled.div`
@@ -102,6 +123,11 @@ const CartWrapper = styled.div`
 `;
 const CartComponent = styled.img`
   width: 2.3rem;
+  @media (max-width: 600px) {
+    display: flex;
+    width: 1.9rem;
+    transform: translateY(0.9rem);
+  }
 `;
 const CounterComponent = styled.div`
   display: flex;
@@ -119,6 +145,11 @@ const CounterComponent = styled.div`
   & > p {
     color: var(--blue);
     text-align: center;
+  }
+  @media (max-width: 600px) {
+    transform: translate(1.5rem, 0.4rem);
+    min-width: 1rem;
+    min-height: 1rem;
   }
 `;
 const Form = styled.form``;
@@ -138,6 +169,16 @@ const SearchInput = styled.input`
     color: var(--light-gray);
     font-size: 0.55rem;
   }
+  @media (max-width: 600px) {
+    margin: 0.5rem;
+    width: 20rem;
+  }
+  @media (max-width: 350px) {
+    width: 18rem;
+    &::placeholder {
+      font-size: 0.5rem;
+    }
+  }
 `;
 
 const SearchButton = styled.button`
@@ -146,6 +187,9 @@ const SearchButton = styled.button`
   position: absolute;
   transform: translate(-3.5rem, 1.3rem);
   cursor: pointer;
+  @media (max-width: 600px) {
+    transform: translate(-3rem, 0.8rem);
+  }
 `;
 
 const SearchIcon = styled.img`
@@ -159,9 +203,6 @@ const HeaderElements = styled.div`
   margin: 0 1rem;
 `;
 
-const HeaderWrapper = styled.div`
-  display: flex;
-`;
 const HeaderFooter = styled.div`
   display: flex;
   background-color: var(--black);
@@ -170,6 +211,9 @@ const HeaderFooter = styled.div`
   box-shadow: inset 0px 0px 5px 4px #000000da;
   align-items: center;
   justify-content: center;
+  @media (max-width: 600px) {
+    height: 1.2rem;
+  }
 `;
 
 const PokeButton = styled.div`
@@ -203,6 +247,18 @@ const PokeButton = styled.div`
     overflow: visible;
     border-radius: 100%;
     position: absolute;
+  }
+  @media (max-width: 600px) {
+    width: 2.8rem;
+    height: 2.8rem;
+    &:before {
+      width: 2rem;
+      height: 2rem;
+    }
+    &:after {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
   }
 `;
 

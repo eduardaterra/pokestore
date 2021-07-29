@@ -132,25 +132,39 @@ const FilterButton = styled.button`
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-  margin-top: 1.6rem;
+  margin: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+
+  @media (max-width: 600px) {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 1.65rem 1rem 0.5rem 0rem;
+  }
 `;
 
 const FilterImg = styled.img`
   width: 2rem;
+  @media (max-width: 600px) {
+    width: 1.5rem;
+  }
 `;
 
 const Overlay = styled.div`
   display: flex;
-  position: fixed;
+  position: absolute;
   background: rgba(0, 0, 0, 0.2);
   min-height: 100%;
-  width: 100%;
+  min-width: 130%;
   justify-content: flex-end;
   align-items: center;
+  z-index: 1;
+
+  @media (max-width: 600px) {
+    width: 100vw;
+  }
 `;
 
 const FilterAside = styled.div<Pick<AsideProps, "slide">>`
@@ -158,26 +172,27 @@ const FilterAside = styled.div<Pick<AsideProps, "slide">>`
   width: 15rem;
   background: var(--main-white);
   display: flex;
+
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
-  position: absolute;
+  position: relative;
   animation: ${({ slide }) => slide} 0.7s ease-out;
 
   @keyframes slideIn {
     0% {
-      transform: translateX(15rem);
+      right: -100%;
     }
     100% {
-      transform: translateX(0rem);
+      right: 0;
     }
   }
   @keyframes slideOut {
     0% {
-      transform: translateX(0rem);
+      right: 0;
     }
     100% {
-      transform: translateX(15rem);
+      right: -100%;
     }
   }
 
@@ -191,20 +206,46 @@ const FilterAside = styled.div<Pick<AsideProps, "slide">>`
       filter: brightness(0.8);
     }
   }
+  @media (max-width: 600px) {
+    min-height: 100vh;
+    width: 12rem;
+    > a {
+      font-size: 0.5rem;
+    }
+  }
+  @media (max-width: 350px) {
+    > a {
+      font-size: 0.4rem;
+      margin: 0 1rem 0.5rem 1rem;
+    }
+  }
 `;
 
 const ExitButton = styled.button`
   border: 0;
   background: transparent;
   margin: 1rem 12rem 0 1rem;
+  @media (max-width: 600px) {
+    margin: 2.5rem 9.5rem 0 1rem;
+  }
 `;
 const ExitImg = styled.img`
   width: 2rem;
+  @media (max-width: 600px) {
+    width: 1.5rem;
+  }
 `;
 
 const Title = styled.h1`
   color: var(--black);
   font-size: 1rem;
   margin: 1rem 2rem;
+  @media (max-width: 600px) {
+    font-size: 0.7rem;
+  }
+  @media (max-width: 350px) {
+    margin: 0.5rem 1rem;
+    font-size: 0.6rem;
+  }
 `;
 export default FiltersModal;

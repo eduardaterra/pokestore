@@ -87,6 +87,9 @@ const SearchResult = () => {
               </>
             )}
           </TitleContainer>
+          <FilterContainer>
+            {showFilters && searchList.length > 4 ? <FiltersModal /> : null}
+          </FilterContainer>
           {isLoading ? null : searchList.length === 0 ? (
             isDragoniteLoading ? null : (
               <PokemonNotFoundContainer>
@@ -132,11 +135,6 @@ const SearchResult = () => {
             ) : null}
           </Footer>
         </ListWrapper>
-        {showFilters && searchList.length > 4 ? (
-          <FiltersModal />
-        ) : (
-          <FilterGap />
-        )}
       </HomeContainer>
     </>
   );
@@ -144,7 +142,6 @@ const SearchResult = () => {
 
 const HomeContainer = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   gap: 1.6rem;
 `;
@@ -153,29 +150,34 @@ const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 `;
 
 const TitleContainer = styled.div`
-  margin: 1.6rem 0 0rem 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
+  margin: 1.6rem 0;
 `;
 
 const Title = styled.h1`
-  margin: 0rem 0 1rem 6.2rem;
   color: var(--gray);
   font-size: 1.3rem;
   text-align: start;
 `;
 
 const Subtitle = styled.p`
-  margin: 0 0 1.6rem 6.2rem;
+  margin-top: 1.6rem;
   color: var(--light-gray);
   font-size: 0.8rem;
+`;
+
+const FilterContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  position: absolute;
 `;
 
 const PokemonNotFoundContainer = styled.div`
@@ -184,25 +186,23 @@ const PokemonNotFoundContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin: 6rem 0 0 4.5rem;
+  margin: 6rem 0 0 0rem;
 
   > img {
     width: 12rem;
     opacity: 0.5;
-    margin: 0 0 1rem 6.2rem;
+    margin: 0 0 1rem 0;
   }
   > p {
     font-size: 0.8rem;
     color: var(--gray);
     text-align: center;
     line-height: 1rem;
-    margin: 0 0 0 3rem;
   }
 
   > a {
     color: var(--light-gray);
     font-size: 0.8rem;
-    margin: 0 0 0 3rem;
   }
 `;
 
@@ -211,10 +211,10 @@ const PokemonListContainer = styled.div`
   grid-template-columns: repeat(4, auto);
   width: 100%;
   justify-content: center;
-  margin: 0 0 0 6.5rem;
   column-gap: 2rem;
   row-gap: 2rem;
 `;
+
 const PokemonGridlessContainer = styled.div`
   display: flex;
   gap: 2rem;
@@ -224,15 +224,11 @@ const PokemonGridlessContainer = styled.div`
   width: 100%;
 `;
 
-const FilterGap = styled.div`
-  width: 6.2rem;
-`;
-
 const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0 2rem 6.2rem;
+  margin: 2rem 0;
 `;
 
 const FetchMoreButton = styled.button`

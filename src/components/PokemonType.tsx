@@ -37,6 +37,13 @@ const PokemonTypeCard = styled.div<
     width: fit-content;
     text-shadow: 1px 1px 2px var(--black);
   }
+  @media (max-width: 1000px) {
+    width: ${({ backgroundSize }) => backgroundSize.width - 0.8}rem;
+    height: ${({ backgroundSize }) => backgroundSize.height - 0.3}rem;
+    > p {
+      font-size: ${({ fontSize }) => fontSize - 0.1}rem;
+    }
+  }
 `;
 
 export default PokemonType;

@@ -63,6 +63,9 @@ const Home = () => {
               </>
             )}
           </TitleContainer>
+          <FilterContainer>
+            {showFilters ? <FiltersModal /> : null}
+          </FilterContainer>
           <PokemonListContainer>
             {pokemonList.map(({ ...pokemon }) => (
               <PokemonCard pokemon={pokemon} key={pokemon.key} />
@@ -89,11 +92,19 @@ const Home = () => {
             ) : null}
           </Footer>
         </ListWrapper>
-        {showFilters ? <FiltersModal /> : <FilterGap />}
       </HomeContainer>
     </>
   );
 };
+
+const HomeContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
 
 const ListWrapper = styled.div`
   display: flex;
@@ -102,31 +113,47 @@ const ListWrapper = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  margin: 1.6rem 0 0rem 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
+  align-items: center;
+  margin: 2rem 0;
+  @media (max-width: 600px) {
+    width: 100%;
+    margin: 3.8rem 0 1rem 0;
+  }
 `;
 
 const Title = styled.h1`
-  margin: 0rem 0 1rem 6.2rem;
   color: var(--gray);
   font-size: 1.3rem;
-  text-align: start;
+
+  @media (max-width: 1000px) {
+    font-size: 1rem;
+  }
+  @media (max-width: 600px) {
+    width: 60%;
+    text-align: center;
+    line-height: 1rem;
+    font-size: 0.58rem;
+    margin: 0 0 1rem 1rem;
+  }
 `;
 
 const Subtitle = styled.p`
-  margin: 0 0 1.6rem 6.2rem;
+  margin-top: 1.6rem;
   color: var(--light-gray);
   font-size: 0.8rem;
+  @media (max-width: 600px) {
+    font-size: 0.48rem;
+    margin: 0 0 1rem 1rem;
+  }
 `;
 
-const HomeContainer = styled.div`
+const FilterContainer = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 1.6rem;
+  justify-content: flex-end;
+  width: 100%;
+  position: absolute;
 `;
 
 const PokemonListContainer = styled.div`
@@ -134,20 +161,27 @@ const PokemonListContainer = styled.div`
   grid-template-columns: repeat(4, auto);
   width: 100%;
   justify-content: center;
-  margin: 0 0 0 4.5rem;
   column-gap: 2rem;
   row-gap: 2rem;
-`;
 
-const FilterGap = styled.div`
-  width: 3rem;
+  @media (max-width: 1000px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, auto);
+    gap: 1rem;
+  }
 `;
 
 const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0 2rem 6.2rem;
+  margin: 2rem 0;
+  @media (max-width: 600px) {
+    margin: 2rem 0;
+  }
 `;
 
 const FetchMoreButton = styled.button`
@@ -158,6 +192,11 @@ const FetchMoreButton = styled.button`
   width: 20rem;
   height: 2.3rem;
   cursor: pointer;
+  @media (max-width: 600px) {
+    width: 15rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
 `;
 
 export default Home;

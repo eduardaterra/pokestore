@@ -72,6 +72,10 @@ const PokemonImageContainer = styled.div<
     );
   background-repeat: no-repeat;
   background-size: 100%;
+  @media (max-width: 1000px) {
+    height: ${({ pokemonImageSize }) => pokemonImageSize.height - 2}rem;
+    width: ${({ pokemonImageSize }) => pokemonImageSize.width - 2}rem;
+  }
 `;
 
 const Image = styled.img`

@@ -41,10 +41,19 @@ const AddToCartContainer = styled.div<
   margin: 0 auto;
   cursor: pointer;
   font-size: ${({ fontSize }) => fontSize}rem;
+
+  @media (max-width: 800px) {
+    width: ${({ backgroundSize }) => backgroundSize.width - 1.5}rem;
+    height: ${({ backgroundSize }) => backgroundSize.height - 0.3}rem;
+    font-size: ${({ fontSize }) => fontSize - 0.1}rem;
+  }
 `;
 
 const IconSize = styled.img<Pick<AddToCartType, "iconSize">>`
   width: ${({ iconSize }) => iconSize}rem;
+  @media (max-width: 800px) {
+    width: ${({ iconSize }) => iconSize - 0.2}rem;
+  }
 `;
 
 export default AddToCartButton;
