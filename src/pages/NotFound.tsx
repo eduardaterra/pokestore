@@ -28,6 +28,7 @@ const PageNotFoundContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 8rem;
+
   gap: 1rem;
 
   > img {
@@ -45,6 +46,18 @@ const PageNotFoundContainer = styled.div`
   > a {
     color: var(--light-gray);
     font-size: 0.8rem;
+  }
+  @media (max-width: 600px) {
+    margin-top: 5rem;
+    > img {
+      width: 14rem;
+    }
+    > p {
+      font-size: 0.6rem;
+    }
+    > a {
+      font-size: 0.55rem;
+    }
   }
 `;
 

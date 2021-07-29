@@ -29,12 +29,14 @@ const PokemonInfoModal = (props: ModalProps) => {
     <ModalOverlay>
       <ModalContainer>
         <PokemonContent>
-          <PokemonImage
-            primaryColor={PokemonColor(pokemonInfo.types[0] as A)}
-            secondaryColor={PokemonColor(pokemonInfo.types[1] as A)}
-            pokeImg={pokemonInfo.sprite}
-            pokemonImageSize={{ height: 16, width: 16 }}
-          />
+          <PokemonImageContainer>
+            <PokemonImage
+              primaryColor={PokemonColor(pokemonInfo.types[0] as A)}
+              secondaryColor={PokemonColor(pokemonInfo.types[1] as A)}
+              pokeImg={pokemonInfo.sprite}
+              pokemonImageSize={{ height: 16, width: 16 }}
+            />
+          </PokemonImageContainer>
           <PokemonAside>
             <PokemonNameContainer>
               {pokemonInfo.name}
@@ -64,7 +66,7 @@ const PokemonInfoModal = (props: ModalProps) => {
             </PokemonInfoContainer>
             <Footer>
               <AddToCartButton
-                fontSize={0.9}
+                fontSize={0.8}
                 iconSize={1.8}
                 backgroundSize={{
                   height: 2.5,
@@ -105,6 +107,14 @@ const ModalContainer = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-end;
+  @media (max-width: 600px) {
+    width: 18rem;
+    height: 28rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
 `;
 
 const PokemonContent = styled.div`
@@ -114,7 +124,13 @@ const PokemonContent = styled.div`
   justify-content: space-evenly;
   height: 20rem;
   width: 46rem;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
+
+const PokemonImageContainer = styled.div``;
 
 const PokemonAside = styled.div`
   display: flex;
@@ -122,6 +138,10 @@ const PokemonAside = styled.div`
   align-items: flex-start;
   justify-content: space-evenly;
   height: 90%;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const PokemonNameContainer = styled.h1`
@@ -135,6 +155,13 @@ const PokemonNameContainer = styled.h1`
     color: var(--gray);
     font-size: 0.9rem;
   }
+  @media (max-width: 600px) {
+    font-size: 1rem;
+    align-items: center;
+    > p {
+      font-size: 0.7rem;
+    }
+  }
 `;
 const PokemonTypeContainer = styled.div`
   display: flex;
@@ -142,6 +169,9 @@ const PokemonTypeContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.4rem;
+  @media (max-width: 600px) {
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const PokemonInfoContainer = styled.div`
@@ -150,6 +180,10 @@ const PokemonInfoContainer = styled.div`
   color: var(--gray);
   > strong {
     color: var(--dark-gray);
+  }
+  @media (max-width: 600px) {
+    line-height: 0.9rem;
+    font-size: 0.5rem;
   }
 `;
 
@@ -161,6 +195,11 @@ const Footer = styled.div`
   justify-content: flex-end;
   margin-top: 1rem;
   margin-left: 20%;
+  @media (max-width: 600px) {
+    align-items: center;
+    justify-content: center;
+    margin: 0.8rem 0;
+  }
 `;
 
 const CloseModal = styled.button`
@@ -169,6 +208,11 @@ const CloseModal = styled.button`
   color: var(--light-gray);
   font-size: 2rem;
   cursor: pointer;
+  @media (max-width: 600px) {
+    position: absolute;
+    transform: translate(7rem, -12rem);
+    font-size: 1.5rem;
+  }
 `;
 
 export default PokemonInfoModal;
