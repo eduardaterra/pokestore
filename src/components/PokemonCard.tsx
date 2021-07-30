@@ -66,7 +66,8 @@ const PokemonCardComponent = styled.div`
   flex-direction: column;
   border-radius: 1rem;
   width: 14rem;
-  height: 18rem;
+  height: 19rem;
+  justify-content: center;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
 
   align-items: center;

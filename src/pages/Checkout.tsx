@@ -135,7 +135,7 @@ const CheckoutContainer = styled.div`
   @media (max-width: 600px) {
     flex-direction: column;
     align-items: center;
-    margin: 4.5rem 0 2rem 0;
+    margin-top: 4.5rem;
     gap: 1rem;
     width: 100%;
     position: relative;
@@ -231,6 +231,7 @@ const SummaryContainer = styled.div`
   @media (max-width: 1050px) {
     width: 95%;
     padding: 0;
+    margin-bottom: 2rem;
   }
 `;
 const Summary = styled.div`

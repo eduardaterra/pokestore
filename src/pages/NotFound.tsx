@@ -47,6 +47,9 @@ const PageNotFoundContainer = styled.div`
     color: var(--light-gray);
     font-size: 0.8rem;
   }
+  @media (max-width: 1050px) {
+    margin-top: 20rem;
+  }
   @media (max-width: 600px) {
     margin-top: 6.6rem;
     > img {

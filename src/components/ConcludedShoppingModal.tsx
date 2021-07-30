@@ -44,6 +44,9 @@ const ModalOverlay = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
+  @media (max-width: 600px) {
+    transform: translateY(-4.6rem);
+  }
 `;
 const ModalContainer = styled.div`
   background: var(--main-white);
@@ -79,6 +82,20 @@ const ModalContainer = styled.div`
         transform: translate(0.2rem, 0rem);
       }
     }
+  }
+  @media (max-width: 600px) {
+    height: 20rem;
+    width: 90%;
+    > h1 {
+      font-size: 1rem;
+      text-align: center;
+    }
+  }
+  > img {
+    width: 8rem;
+  }
+  > p {
+    font-size: 0.6rem;
   }
 `;
 

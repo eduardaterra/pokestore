@@ -18,6 +18,7 @@ const SearchResult = () => {
   const [isDragoniteLoading, setIsDragoniteLoading] = useState(true);
   const [searchList, setSearchList] = useState<Pokemon[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(true);
   const [countPokemon, setCountPokemon] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
 
@@ -53,6 +54,7 @@ const SearchResult = () => {
         setSearchList(res.results);
         setCountPokemon(res.count);
         setIsLoading(false);
+        setIsFetching(false);
         setShowFilters(true);
       }
     );
@@ -113,12 +115,12 @@ const SearchResult = () => {
           )}
 
           <Footer>
-            {isLoading ? (
+            {isFetching ? (
               <Spinner />
             ) : countPokemon > searchList.length ? (
               <FetchMoreButton
                 onClick={() => {
-                  setIsLoading(true);
+                  setIsFetching(true);
                   fetchPokemonSearch(
                     searchList,
                     pokemon,
@@ -126,7 +128,7 @@ const SearchResult = () => {
                     queryOrder
                   ).then((res) => {
                     setSearchList(res.results);
-                    setTimeout(() => setIsLoading(false), 1000);
+                    setTimeout(() => setIsFetching(false), 1000);
                   });
                 }}
               >
