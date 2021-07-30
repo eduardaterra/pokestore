@@ -95,6 +95,9 @@ const ModalOverlay = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
+  @media (max-width: 600px) {
+    transform: translateY(-4.69rem);
+  }
 `;
 
 const ModalContainer = styled.div`
@@ -130,7 +133,11 @@ const PokemonContent = styled.div`
   }
 `;
 
-const PokemonImageContainer = styled.div``;
+const PokemonImageContainer = styled.div`
+  @media (max-width: 600px) {
+    margin: 0.5rem;
+  }
+`;
 
 const PokemonAside = styled.div`
   display: flex;

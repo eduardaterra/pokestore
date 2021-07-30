@@ -45,7 +45,7 @@ const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   @media (max-width: 600px) {
-    transform: translateY(-4.6rem);
+    transform: translateY(-4.69rem);
   }
 `;
 const ModalContainer = styled.div`
