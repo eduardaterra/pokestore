@@ -45,7 +45,7 @@ const AddToCartContainer = styled.div<
   @media (max-width: 800px) {
     width: ${({ backgroundSize }) => backgroundSize.width - 2.2}rem;
     height: ${({ backgroundSize }) => backgroundSize.height - 0.3}rem;
-    font-size: ${({ fontSize }) => fontSize - 0.1}rem;
+    font-size: ${({ fontSize }) => fontSize - 0.2}rem;
   }
 `;
 

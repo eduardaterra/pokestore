@@ -99,6 +99,11 @@ const Container = styled.div`
     border: 0;
   }
   @media (max-width: 600px) {
+    gap: 1rem;
+    align-items: flex-start;
+    margin: 0.5rem;
+  }
+  @media (max-width: 350px) {
     gap: 0;
     align-items: flex-start;
     margin: 0.5rem;
@@ -111,7 +116,6 @@ const PokemonItem = styled.div`
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
-
   gap: 2rem;
 
   @media (max-width: 600px) {
@@ -127,6 +131,9 @@ const TopContainer = styled.div`
   justify-content: space-between;
   gap: 2rem;
   @media (max-width: 600px) {
+    gap: 2rem;
+  }
+  @media (max-width: 350px) {
     gap: 0.7rem;
   }
 `;
@@ -153,7 +160,11 @@ const PokemonInfoContainer = styled.div`
   > strong {
     color: var(--dark-gray);
   }
+
   @media (max-width: 600px) {
+    font-size: 0.4rem;
+  }
+  @media (max-width: 350px) {
     font-size: 0.35rem;
   }
 `;
