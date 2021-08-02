@@ -70,7 +70,7 @@ const FiltersModal = () => {
                 setTimeout(() => {
                   setShowFilters(false);
                   setShowScrollbar("unset");
-                }, 700);
+                }, 1300);
                 setSlide("slideOut");
               }}
             >
@@ -176,7 +176,7 @@ const FilterAside = styled.div<Pick<AsideProps, "slide">>`
   justify-content: flex-start;
   align-items: flex-end;
   position: relative;
-  animation: ${({ slide }) => slide} 0.7s ease-out;
+  animation: ${({ slide }) => slide} 1.3s ease-out;
 
   @keyframes slideIn {
     0% {
