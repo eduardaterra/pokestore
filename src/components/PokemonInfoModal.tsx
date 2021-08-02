@@ -18,12 +18,10 @@ type ModalProps = {
 };
 
 const PokemonInfoModal = (props: ModalProps) => {
-  const { showScrollbar } = useContext(PokemonInfoModalContext);
+  const { setShowScrollbar } = useContext(PokemonInfoModalContext);
   const { setPokemonCartList, pokemonCartList } = useContext(CartContext);
 
   const { showModal, setShowModal, pokemonInfo } = props;
-
-  document.body.style.overflow = showScrollbar;
 
   return showModal ? (
     <ModalOverlay>
@@ -85,7 +83,14 @@ const PokemonInfoModal = (props: ModalProps) => {
             </Footer>
           </PokemonAside>
         </PokemonContent>
-        <CloseModal onClick={() => setShowModal(false)}>X</CloseModal>
+        <CloseModal
+          onClick={() => {
+            setShowModal(false);
+            setShowScrollbar("unset");
+          }}
+        >
+          X
+        </CloseModal>
       </ModalContainer>
     </ModalOverlay>
   ) : null;

@@ -12,9 +12,10 @@ import AddToCartButton from "./AddToCartButton";
 
 const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
   const { pokemonCartList, setPokemonCartList } = useContext(CartContext);
-  const { setShowModal, setPokemonInfo, setShowScrollbar } = useContext(
-    PokemonInfoModalContext
-  );
+  const { setShowModal, setPokemonInfo, setShowScrollbar, showScrollbar } =
+    useContext(PokemonInfoModalContext);
+
+  document.body.style.overflow = showScrollbar;
 
   return (
     <PokemonCardComponent>
