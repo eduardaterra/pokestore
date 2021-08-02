@@ -29,6 +29,7 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
           setPokemonInfo(pokemon);
           setShowScrollbar("hidden");
         }}
+        cursor={"pointer"}
       />
 
       <PokemonName>

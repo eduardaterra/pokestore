@@ -33,6 +33,7 @@ const CartProducts: React.FC<{ pokemon: Pokemon; pokemonList: Pokemon[] }> = ({
           pokeImg={pokemon.sprite}
           pokemonImageSize={{ height: 5.5, width: 5.5 }}
           onClick={() => {}}
+          cursor={"default"}
         />
       </div>
       <PokemonItem>

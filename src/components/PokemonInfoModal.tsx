@@ -33,6 +33,7 @@ const PokemonInfoModal = (props: ModalProps) => {
               secondaryColor={PokemonColor(pokemonInfo.types[1] as A)}
               pokeImg={pokemonInfo.sprite}
               pokemonImageSize={{ height: 16, width: 16 }}
+              cursor={"default"}
             />
           </PokemonImageContainer>
           <PokemonAside>

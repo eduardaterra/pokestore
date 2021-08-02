@@ -7,6 +7,7 @@ type ImageProps = {
   secondaryColor?: string;
   pokeImg: string;
   pokemonImageSize: SizesType;
+  cursor: string;
   onClick?: () => void;
 };
 
@@ -21,6 +22,7 @@ const PokemonImage = (props: ImageProps) => {
     secondaryColor,
     pokeImg,
     pokemonImageSize,
+    cursor,
     onClick = () => {},
   } = props;
 
@@ -32,6 +34,7 @@ const PokemonImage = (props: ImageProps) => {
         pokemonImageSize={pokemonImageSize}
         backgroundUrl={pokeballBg}
         onClick={onClick}
+        cursor={cursor}
       >
         <Image src={pokeImg} />
       </PokemonImageContainer>
@@ -45,6 +48,7 @@ const PokemonImage = (props: ImageProps) => {
       pokemonImageSize={pokemonImageSize}
       backgroundUrl={pokeballBg}
       onClick={onClick}
+      cursor={cursor}
     >
       <Image src={pokeImg} />
     </PokemonImageContainer>
@@ -52,7 +56,10 @@ const PokemonImage = (props: ImageProps) => {
 };
 
 const PokemonImageContainer = styled.div<
-  Pick<ImageProps, "primaryColor" | "secondaryColor" | "pokemonImageSize"> & {
+  Pick<
+    ImageProps,
+    "primaryColor" | "secondaryColor" | "pokemonImageSize" | "cursor"
+  > & {
     backgroundUrl: string;
   }
 >`
@@ -63,7 +70,7 @@ const PokemonImageContainer = styled.div<
   align-items: center;
   justify-content: center;
   margin: 0.5rem;
-  cursor: pointer;
+  cursor: ${({ cursor }) => cursor};
   background-image: url(${({ backgroundUrl }) => backgroundUrl}),
     linear-gradient(
       130deg,
