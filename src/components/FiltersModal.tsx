@@ -46,7 +46,6 @@ const FiltersModal = () => {
     });
     fetchPokemonTypes().then((res) => {
       setTypeList(res);
-      console.log(typeList);
     });
   }, []);
 

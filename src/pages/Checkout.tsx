@@ -60,6 +60,7 @@ const Checkout = () => {
                   <CartProducts
                     pokemon={filteredPokemon}
                     pokemonList={pokemonList}
+                    key={key}
                   />
                 );
               })
@@ -74,7 +75,13 @@ const Checkout = () => {
             <p>
               quantity: <strong>{totalItems} pokémon</strong>
               <br />
-              total: <strong>¥ {totalPrice}</strong>
+              total:{" "}
+              <strong>
+                ¥{" "}
+                {new Intl.NumberFormat("en-IN", {
+                  maximumSignificantDigits: 3,
+                }).format(totalPrice)}
+              </strong>
             </p>
             <ButtonsContainer>
               <CleanCartButton

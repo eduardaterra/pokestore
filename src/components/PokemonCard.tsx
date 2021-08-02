@@ -31,7 +31,7 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
       />
 
       <PokemonName>
-        {pokemon.name}{" "}
+        {pokemon.name.split("-")[0]}{" "}
         <strong>#{pokemon.key.toString().padStart(2, "0")}</strong>
       </PokemonName>
       <PokemonTypeContainer>
@@ -45,7 +45,12 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
           />
         ))}
       </PokemonTypeContainer>
-      <PokemonPrice> ¥ {pokemon.price}</PokemonPrice>
+      <PokemonPrice>
+        ¥{" "}
+        {new Intl.NumberFormat("en-IN", { maximumSignificantDigits: 3 }).format(
+          pokemon.price
+        )}
+      </PokemonPrice>
       <AddToCartButton
         fontSize={0.6}
         iconSize={1.3}

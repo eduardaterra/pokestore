@@ -66,6 +66,7 @@ const SearchResult = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         pokemonInfo={pokemonInfo}
+        key={pokemonInfo.key}
       />
       <HomeContainer>
         <ListWrapper>

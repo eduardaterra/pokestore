@@ -39,8 +39,13 @@ const PokemonInfoModal = (props: ModalProps) => {
           </PokemonImageContainer>
           <PokemonAside>
             <PokemonNameContainer>
-              {pokemonInfo.name}
-              <p>¥ {pokemonInfo.price}</p>
+              {pokemonInfo.name.split("-")[0]}
+              <p>
+                ¥{" "}
+                {new Intl.NumberFormat("en-IN", {
+                  maximumSignificantDigits: 3,
+                }).format(pokemonInfo.price)}
+              </p>
               <PokemonTypeContainer>
                 {pokemonInfo.types.map((type) => (
                   <PokemonType
@@ -48,6 +53,7 @@ const PokemonInfoModal = (props: ModalProps) => {
                     pokemonType={type}
                     fontSize={0.6}
                     backgroundSize={{ height: 1.6, width: 5.8 }}
+                    key={type}
                   />
                 ))}
               </PokemonTypeContainer>
@@ -112,7 +118,7 @@ const ModalContainer = styled.div`
   justify-content: flex-end;
   @media (max-width: 600px) {
     width: 18rem;
-    height: 28rem;
+    height: 30rem;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -217,7 +223,7 @@ const CloseModal = styled.button`
   cursor: pointer;
   @media (max-width: 600px) {
     position: absolute;
-    transform: translate(7rem, -12rem);
+    transform: translate(7rem, -13rem);
     font-size: 1.5rem;
   }
 `;

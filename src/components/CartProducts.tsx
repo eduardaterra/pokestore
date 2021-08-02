@@ -38,7 +38,7 @@ const CartProducts: React.FC<{ pokemon: Pokemon; pokemonList: Pokemon[] }> = ({
       <PokemonItem>
         <TopContainer>
           <PokemonTitle>
-            <PokemonName>{pokemon.name}</PokemonName>
+            <PokemonName>{pokemon.name.split("-")[0]}</PokemonName>
             <PokemonTypeContainer>
               {pokemon.types.map((type) => (
                 <PokemonType
@@ -46,6 +46,7 @@ const CartProducts: React.FC<{ pokemon: Pokemon; pokemonList: Pokemon[] }> = ({
                   pokemonType={type}
                   fontSize={0.35}
                   backgroundSize={{ height: 1, width: 3.5 }}
+                  key={type}
                 />
               ))}
             </PokemonTypeContainer>
@@ -80,7 +81,13 @@ const CartProducts: React.FC<{ pokemon: Pokemon; pokemonList: Pokemon[] }> = ({
           </QuantityContainer>
           <PriceContainer>
             <p>
-              price: <strong>¥ {pokemon.price * pokemonList.length}</strong>
+              price:{" "}
+              <strong>
+                ¥{" "}
+                {new Intl.NumberFormat("en-IN", {
+                  maximumSignificantDigits: 3,
+                }).format(pokemon.price * pokemonList.length)}
+              </strong>
             </p>
           </PriceContainer>
         </BottomContainer>
