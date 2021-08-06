@@ -66,7 +66,7 @@ const ModalContainer = styled.div`
   }
   > p {
     color: var(--gray);
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
   > img {
     width: 10rem;
@@ -90,12 +90,12 @@ const ModalContainer = styled.div`
       font-size: 1rem;
       text-align: center;
     }
-  }
-  > img {
-    width: 8rem;
-  }
-  > p {
-    font-size: 0.6rem;
+    > img {
+      width: 8rem;
+    }
+    > p {
+      font-size: 0.6rem;
+    }
   }
 `;
 

@@ -47,8 +47,3 @@ $ npm start
 ```
 
 <p>The app will be available in your browser by the address <a href="http://localhost:3000">http://localhost:3000</a></p><br/>
-
-## 🚧 Pending Task
-
-<br/>
-<li>Responsiveness</li>
