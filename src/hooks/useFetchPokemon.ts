@@ -22,6 +22,8 @@ type TypesApiRes = {
 
 export type PokemonList = Array<Pokemon>;
 
+const apiUrl = "https://pokestore-api.vercel.app/";
+
 const useFetchPokemon = () => {
   return {
     fetchPokemonList,
@@ -41,11 +43,11 @@ const fetchPokemonList = async (
   const url =
     type !== null
       ? order !== null
-        ? `https://pokestore-api.herokuapp.com/types/${type}?offset=${offset}&limit=20&order=${order}`
-        : `https://pokestore-api.herokuapp.com/types/${type}?offset=${offset}&limit=20`
+        ? `${apiUrl}types/${type}?offset=${offset}&limit=20&order=${order}`
+        : `${apiUrl}types/${type}?offset=${offset}&limit=20`
       : order !== null
-      ? `https://pokestore-api.herokuapp.com/pokemon?offset=${offset}&limit=20&order=${order}`
-      : `https://pokestore-api.herokuapp.com/pokemon?offset=${offset}&limit=20`;
+      ? `${apiUrl}pokemon?offset=${offset}&limit=20&order=${order}`
+      : `${apiUrl}pokemon?offset=${offset}&limit=20`;
 
   const { data } = await axios.get<PokemonApiRes>(url);
   const countResults = data.count === undefined ? 0 : data.count;
@@ -63,11 +65,11 @@ const fetchPokemonSearch = async (
   const url =
     type !== null
       ? order !== null
-        ? `https://pokestore-api.herokuapp.com/types/${type}/pokemon/${params}?offset=${offset}&limit=20&order=${order}`
-        : `https://pokestore-api.herokuapp.com/types/${type}/pokemon/${params}?offset=${offset}&limit=20`
+        ? `${apiUrl}types/${type}/pokemon/${params}?offset=${offset}&limit=20&order=${order}`
+        : `${apiUrl}types/${type}/pokemon/${params}?offset=${offset}&limit=20`
       : order !== null
-      ? `https://pokestore-api.herokuapp.com/pokemon/${params}?offset=${offset}&limit=20&order=${order}`
-      : `https://pokestore-api.herokuapp.com/pokemon/${params}?offset=${offset}&limit=20`;
+      ? `${apiUrl}pokemon/${params}?offset=${offset}&limit=20&order=${order}`
+      : `${apiUrl}pokemon/${params}?offset=${offset}&limit=20`;
 
   const { data } = await axios.get<PokemonApiRes>(url);
 
@@ -76,17 +78,14 @@ const fetchPokemonSearch = async (
 };
 
 const fetchPokemonProps = async (): Promise<String[]> => {
-  const { data } = await axios.get<PokemonApiRes>(
-    `https://pokestore-api.herokuapp.com/pokemon/1`
-  );
+  const { data } = await axios.get<PokemonApiRes>(`${apiUrl}pokemon/1`);
   return Object.keys(data.results[0]);
 };
 
 const fetchPokemonTypes = async (): Promise<String[]> => {
-  const { data } = await axios.get<TypesApiRes>(
-    `https://pokestore-api.herokuapp.com/types`
-  );
+  const { data } = await axios.get<TypesApiRes>(`${apiUrl}types`);
   return Object.keys(data.routes);
 };
 
 export default useFetchPokemon;
+
